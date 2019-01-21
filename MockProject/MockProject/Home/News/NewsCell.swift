@@ -1,0 +1,12 @@
+import UIKit
+
+class NewsCell: UITableViewCell {
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var thumbImage: UIImageView!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var authorLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var autLbl: UILabel!
+    @IBOutlet weak var feedLabel: UILabel!
+}
