@@ -21,6 +21,9 @@
 		F710D82E21F58CD20046FEB6 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F710D82D21F58CD20046FEB6 /* HomePageView.swift */; };
 		F710D83021F5C9560046FEB6 /* BrowseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F710D82F21F5C9560046FEB6 /* BrowseVC.swift */; };
 		F710D83221F5C9770046FEB6 /* BrowseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F710D83121F5C9770046FEB6 /* BrowseCell.swift */; };
+		F789E6E421F7216600E147F1 /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F789E6E321F7216600E147F1 /* AccountVC.swift */; };
+		F7D4E4B221F6D8BA008293E4 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D4E4B121F6D8BA008293E4 /* RegisterVC.swift */; };
+		F7D4E4B421F6D913008293E4 /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D4E4B321F6D913008293E4 /* LogInVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		F710D82D21F58CD20046FEB6 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
 		F710D82F21F5C9560046FEB6 /* BrowseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseVC.swift; sourceTree = "<group>"; };
 		F710D83121F5C9770046FEB6 /* BrowseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseCell.swift; sourceTree = "<group>"; };
+		F789E6E321F7216600E147F1 /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
+		F7D4E4B121F6D8BA008293E4 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
+		F7D4E4B321F6D913008293E4 /* LogInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +86,9 @@
 				F710D81021F56EE40046FEB6 /* Assets.xcassets */,
 				F710D81221F56EE40046FEB6 /* LaunchScreen.storyboard */,
 				F710D81521F56EE40046FEB6 /* Info.plist */,
+				F7D4E4B321F6D913008293E4 /* LogInVC.swift */,
+				F7D4E4B121F6D8BA008293E4 /* RegisterVC.swift */,
+				F789E6E321F7216600E147F1 /* AccountVC.swift */,
 			);
 			path = MockProject;
 			sourceTree = "<group>";
@@ -196,6 +205,7 @@
 			files = (
 				F710D82721F5877C0046FEB6 /* PopularVC.swift in Sources */,
 				F710D82B21F588030046FEB6 /* PopularDetailVC.swift in Sources */,
+				F7D4E4B421F6D913008293E4 /* LogInVC.swift in Sources */,
 				F710D81E21F57FFF0046FEB6 /* NewsVC.swift in Sources */,
 				F710D82E21F58CD20046FEB6 /* HomePageView.swift in Sources */,
 				F710D82421F582750046FEB6 /* ExtensionCode.swift in Sources */,
@@ -203,6 +213,8 @@
 				F710D82021F580B40046FEB6 /* NewsCell.swift in Sources */,
 				F710D80A21F56EE30046FEB6 /* AppDelegate.swift in Sources */,
 				F710D83021F5C9560046FEB6 /* BrowseVC.swift in Sources */,
+				F789E6E421F7216600E147F1 /* AccountVC.swift in Sources */,
+				F7D4E4B221F6D8BA008293E4 /* RegisterVC.swift in Sources */,
 				F710D83221F5C9770046FEB6 /* BrowseCell.swift in Sources */,
 				F710D82921F587B10046FEB6 /* PopularCell.swift in Sources */,
 			);
