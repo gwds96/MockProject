@@ -79,7 +79,8 @@ extension PopularVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let certifier = "PopularDetailVC"
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: certifier) as! PopularDetailVC
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: certifier)
+            as! PopularDetailVC
         if let urlString = events[indexPath.row].photo {
             vc.eventImg = takeImage(url: urlString)
         } else {

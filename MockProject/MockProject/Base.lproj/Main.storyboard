@@ -84,6 +84,16 @@
             <point key="canvasLocation" x="-298" y="672"/>
         </scene>
         <!--My Page-->
+        <scene sceneID="ePK-51-TpE">
+            <objects>
+                <pageViewController storyboardIdentifier="AccountPageView" autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="iAP-dG-42K" customClass="AccountPageView" customModule="MockProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="My Page" image="icons8-male-user-50 (1)" id="1g7-xM-HjT"/>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gZt-xF-Tk5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-298" y="1406"/>
+        </scene>
+        <!--My Page-->
         <scene sceneID="h3r-Nd-qDV">
             <objects>
                 <viewController storyboardIdentifier="LogInVC" id="rHF-lf-3x5" customClass="LogInVC" customModule="MockProject" customModuleProvider="target" sceneMemberID="viewController">
@@ -180,15 +190,15 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="My Page" image="icons8-male-user-50 (1)" id="B8G-oy-ufK"/>
                     <connections>
+                        <outlet property="emailTextField" destination="Xrm-Dm-I9r" id="68v-tk-7XZ"/>
                         <outlet property="enterButton" destination="ZY0-vV-yRf" id="iyY-fy-qRJ"/>
                         <outlet property="noticeLbl" destination="287-ko-9bN" id="uMg-cp-bsG"/>
-                        <outlet property="passTF" destination="p0K-qv-wv8" id="vHi-NX-xbT"/>
-                        <outlet property="userTF" destination="Xrm-Dm-I9r" id="BHa-zK-oVU"/>
+                        <outlet property="passTextField" destination="p0K-qv-wv8" id="btq-in-Pao"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qT6-ER-cWK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-298" y="1406"/>
+            <point key="canvasLocation" x="554" y="1406"/>
         </scene>
         <!--RegisterVC-->
         <scene sceneID="Xvw-Rt-4pM">
@@ -349,20 +359,20 @@
                     </view>
                     <connections>
                         <outlet property="enterButton" destination="XXI-3F-O7T" id="Woj-yw-KkA"/>
-                        <outlet property="mailTF" destination="xbw-fB-Tfh" id="irG-J3-RDg"/>
+                        <outlet property="mailTextField" destination="xbw-fB-Tfh" id="E8n-rM-7DQ"/>
                         <outlet property="noticeLbl" destination="gnN-nb-dIt" id="WJc-1Q-wUV"/>
                         <outlet property="noticeMailLbl" destination="cPV-GH-soF" id="E0a-2C-lO2"/>
                         <outlet property="noticePassLbl" destination="UDE-U8-v9d" id="eIk-PR-pHL"/>
                         <outlet property="noticeRepassLbl" destination="efF-fE-8jI" id="bpE-JI-443"/>
                         <outlet property="noticeUserLbl" destination="x6z-ed-CL6" id="bFP-mb-NlR"/>
-                        <outlet property="passTF" destination="2xh-uk-Odg" id="I3f-89-Odl"/>
-                        <outlet property="repassTF" destination="XQv-BY-kjp" id="pa5-XY-Hvc"/>
-                        <outlet property="userTF" destination="43e-aG-bx7" id="kfV-qx-OmI"/>
+                        <outlet property="passTextField" destination="2xh-uk-Odg" id="6KZ-fw-VAr"/>
+                        <outlet property="repassTextField" destination="XQv-BY-kjp" id="xCe-bQ-CwI"/>
+                        <outlet property="userTextField" destination="43e-aG-bx7" id="yaR-Ux-48s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JFT-pH-s69" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="421.60000000000002" y="1404.6476761619192"/>
+            <point key="canvasLocation" x="1471" y="1406"/>
         </scene>
         <!--AccountVC-->
         <scene sceneID="aO0-uG-uTi">
@@ -381,6 +391,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSA-03-giP">
                                 <rect key="frame" x="163.5" y="116" width="48" height="30"/>
                                 <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="logOutButton:" destination="eLY-IF-cjf" eventType="touchUpInside" id="MPP-Ga-VAJ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -393,12 +406,12 @@
                         <viewLayoutGuide key="safeArea" id="JAu-Hw-vE1"/>
                     </view>
                     <connections>
-                        <outlet property="logoutButton" destination="OSA-03-giP" id="Tax-JD-dIF"/>
+                        <outlet property="logOutButton" destination="OSA-03-giP" id="PHA-gI-gJ0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3IW-R2-u9N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1099" y="1406"/>
+            <point key="canvasLocation" x="554" y="2109"/>
         </scene>
         <!--Near-->
         <scene sceneID="UfW-0G-l8h">
@@ -429,7 +442,7 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="dDT-n2-0vp"/>
                         <segue destination="T28-TE-Y12" kind="relationship" relationship="viewControllers" id="sER-uO-bic"/>
                         <segue destination="CcD-qn-V3Q" kind="relationship" relationship="viewControllers" id="t3I-WU-02F"/>
-                        <segue destination="rHF-lf-3x5" kind="relationship" relationship="viewControllers" id="Yp1-ET-XhM"/>
+                        <segue destination="iAP-dG-42K" kind="relationship" relationship="viewControllers" id="tdJ-uj-gXP"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XMb-C9-bdi" userLabel="First Responder" sceneMemberID="firstResponder"/>
