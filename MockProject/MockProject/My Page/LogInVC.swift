@@ -7,13 +7,15 @@ class LogInVC: UIViewController {
     @IBOutlet weak var passTextField: UITextField!
     @IBOutlet weak var noticeLbl: UILabel!
     
-    var screen: AccountPageView?
+    var isSuccess = false
+    
+    let keyChain = KeychainSwift()
     
     let urlLogin = URL(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/login")!
-    var accessToken = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         enterButton.layer.borderWidth = 2
         enterButton.layer.borderColor = UIColor.red.cgColor
         enterButton.layer.cornerRadius = 5
@@ -21,7 +23,6 @@ class LogInVC: UIViewController {
         emailTextField.center.x -= view.bounds.width
         passTextField.center.x -= view.bounds.width
         passTextField.passwordRules = UITextInputPasswordRules(descriptor: "required: upper; required: digit; max-consecutive: 2; minlength: 6;")
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,13 +52,15 @@ class LogInVC: UIViewController {
             do {
                 let obj = try JSONDecoder().decode(Account.self, from: data)
                 DispatchQueue.main.async {
-                    print(obj)
                     if obj.status == 0 {
                         self.noticeLbl.text = "Login is failed, please try again!!"
                     } else {
                         self.noticeLbl.text = ""
-                        self.accessToken = obj.response?.token ?? ""
-                        self.screen?.moveToPage(1)
+                        self.isSuccess = true
+                        self.keyChain.set((obj.response?.token)!, forKey: "token")
+                        
+                        //let app = UIApplication.shared.delegate as! AppDelegate
+                        MainTabBar.instance.updateStateTabbar()
                     }
                 }
             }
@@ -71,6 +74,10 @@ class LogInVC: UIViewController {
     
     @IBAction func enterButton(_ sender: Any) {
         postRequestLogin()
+//        if isSuccess {
+//            let app = UIApplication.shared.delegate as! AppDelegate
+//            app.setMainView()
+//        }
     }
     
     // MARK: Sign up Button

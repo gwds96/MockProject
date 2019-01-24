@@ -1,6 +1,6 @@
 import UIKit
 
-protocol SendBackInfoDelegate {
+protocol SendBackInfoDelegate: class {
     func emailAndPass(email: String, pass: String)
 }
 
@@ -17,7 +17,7 @@ class RegisterVC: UIViewController {
     @IBOutlet weak var repassTextField: UITextField!
     @IBOutlet weak var noticeLbl: UILabel!
     
-    var sendBackInfoDelegate: SendBackInfoDelegate?
+    weak var sendBackInfoDelegate: SendBackInfoDelegate?
     
     let urlRegister = URL(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/register")!
     
@@ -66,7 +66,6 @@ class RegisterVC: UIViewController {
                 error == nil else { return }
             do {
                 let obj = try JSONDecoder().decode(Account.self, from: data)
-                print(obj)
                 DispatchQueue.main.async {
                     if obj.status == 0 {
                         self.noticeLbl.text = "Register is failed, please try again!!"

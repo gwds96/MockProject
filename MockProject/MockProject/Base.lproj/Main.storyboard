@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nsQ-kp-cxM">
-                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search" id="a5b-fY-5tv">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -82,16 +82,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EMg-Oa-GpF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-298" y="672"/>
-        </scene>
-        <!--My Page-->
-        <scene sceneID="ePK-51-TpE">
-            <objects>
-                <pageViewController storyboardIdentifier="AccountPageView" autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="iAP-dG-42K" customClass="AccountPageView" customModule="MockProject" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My Page" image="icons8-male-user-50 (1)" id="1g7-xM-HjT"/>
-                </pageViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gZt-xF-Tk5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-298" y="1406"/>
         </scene>
         <!--My Page-->
         <scene sceneID="h3r-Nd-qDV">
@@ -198,7 +188,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qT6-ER-cWK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="554" y="1406"/>
+            <point key="canvasLocation" x="-298" y="1406"/>
         </scene>
         <!--RegisterVC-->
         <scene sceneID="Xvw-Rt-4pM">
@@ -372,7 +362,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JFT-pH-s69" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1471" y="1406"/>
+            <point key="canvasLocation" x="554" y="1406"/>
         </scene>
         <!--AccountVC-->
         <scene sceneID="aO0-uG-uTi">
@@ -411,12 +401,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3IW-R2-u9N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="554" y="2109"/>
+            <point key="canvasLocation" x="-298" y="2108"/>
         </scene>
         <!--Near-->
         <scene sceneID="UfW-0G-l8h">
             <objects>
-                <viewController id="T28-TE-Y12" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NearVC" id="T28-TE-Y12" customClass="NearVC" customModule="MockProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vIG-1K-Vln">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -429,25 +419,19 @@
             </objects>
             <point key="canvasLocation" x="-298" y="-66"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Bar-->
         <scene sceneID="FeT-GN-Pjy">
             <objects>
-                <tabBarController id="r9g-23-vFW" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBar" id="r9g-23-vFW" customClass="MainTabBar" customModule="MockProject" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="i9a-fX-9AO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="dDT-n2-0vp"/>
-                        <segue destination="T28-TE-Y12" kind="relationship" relationship="viewControllers" id="sER-uO-bic"/>
-                        <segue destination="CcD-qn-V3Q" kind="relationship" relationship="viewControllers" id="t3I-WU-02F"/>
-                        <segue destination="iAP-dG-42K" kind="relationship" relationship="viewControllers" id="tdJ-uj-gXP"/>
-                    </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XMb-C9-bdi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1665" y="-25"/>
+            <point key="canvasLocation" x="-1490" y="672"/>
         </scene>
         <!--Home-->
         <scene sceneID="tne-QT-ifu">
@@ -475,7 +459,7 @@
                                 </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dhd-AU-ziD">
-                                <rect key="frame" x="0.0" y="51" width="375" height="567"/>
+                                <rect key="frame" x="0.0" y="51" width="375" height="616"/>
                                 <connections>
                                     <segue destination="HkO-Yz-5kW" kind="embed" identifier="HomePageView" id="Msb-Bv-2wZ"/>
                                 </connections>

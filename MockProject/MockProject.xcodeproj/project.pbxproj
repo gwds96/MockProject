@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F702BC3321F9542600685927 /* MainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F702BC3221F9542600685927 /* MainTabBar.swift */; };
+		F702BC3521F97ACA00685927 /* NearVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F702BC3421F97ACA00685927 /* NearVC.swift */; };
+		F702BC3721F9ADF700685927 /* KeyChainSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F702BC3621F9ADF700685927 /* KeyChainSwift.swift */; };
 		F710D80A21F56EE30046FEB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F710D80921F56EE30046FEB6 /* AppDelegate.swift */; };
 		F710D80C21F56EE30046FEB6 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F710D80B21F56EE30046FEB6 /* HomeVC.swift */; };
 		F710D80F21F56EE30046FEB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F710D80D21F56EE30046FEB6 /* Main.storyboard */; };
@@ -28,10 +31,12 @@
 		F7DFC56D21F81DB800FDA62C /* EventsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DFC56C21F81DB800FDA62C /* EventsStruct.swift */; };
 		F7DFC56F21F81DF100FDA62C /* CategoriesStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DFC56E21F81DF100FDA62C /* CategoriesStruct.swift */; };
 		F7DFC57121F81EAF00FDA62C /* AccountStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DFC57021F81EAF00FDA62C /* AccountStruct.swift */; };
-		F7DFC57621F8683200FDA62C /* AccountPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DFC57521F8683200FDA62C /* AccountPageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F702BC3221F9542600685927 /* MainTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBar.swift; sourceTree = "<group>"; };
+		F702BC3421F97ACA00685927 /* NearVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearVC.swift; sourceTree = "<group>"; };
+		F702BC3621F9ADF700685927 /* KeyChainSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainSwift.swift; sourceTree = "<group>"; };
 		F710D80621F56EE30046FEB6 /* MockProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MockProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F710D80921F56EE30046FEB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F710D80B21F56EE30046FEB6 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -55,7 +60,6 @@
 		F7DFC56C21F81DB800FDA62C /* EventsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsStruct.swift; sourceTree = "<group>"; };
 		F7DFC56E21F81DF100FDA62C /* CategoriesStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesStruct.swift; sourceTree = "<group>"; };
 		F7DFC57021F81EAF00FDA62C /* AccountStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStruct.swift; sourceTree = "<group>"; };
-		F7DFC57521F8683200FDA62C /* AccountPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,7 @@
 		F710D7FD21F56EE30046FEB6 = {
 			isa = PBXGroup;
 			children = (
+				F702BC3621F9ADF700685927 /* KeyChainSwift.swift */,
 				F710D80821F56EE30046FEB6 /* MockProject */,
 				F710D80721F56EE30046FEB6 /* Products */,
 			);
@@ -97,6 +102,8 @@
 				F710D81021F56EE40046FEB6 /* Assets.xcassets */,
 				F710D81221F56EE40046FEB6 /* LaunchScreen.storyboard */,
 				F710D81521F56EE40046FEB6 /* Info.plist */,
+				F702BC3221F9542600685927 /* MainTabBar.swift */,
+				F702BC3421F97ACA00685927 /* NearVC.swift */,
 			);
 			path = MockProject;
 			sourceTree = "<group>";
@@ -146,7 +153,6 @@
 		F7DFC57221F81ECF00FDA62C /* My Page */ = {
 			isa = PBXGroup;
 			children = (
-				F7DFC57521F8683200FDA62C /* AccountPageView.swift */,
 				F7D4E4B321F6D913008293E4 /* LogInVC.swift */,
 				F7D4E4B121F6D8BA008293E4 /* RegisterVC.swift */,
 				F789E6E321F7216600E147F1 /* AccountVC.swift */,
@@ -234,16 +240,18 @@
 				F710D82E21F58CD20046FEB6 /* HomePageView.swift in Sources */,
 				F7DFC57121F81EAF00FDA62C /* AccountStruct.swift in Sources */,
 				F710D82421F582750046FEB6 /* ExtensionCode.swift in Sources */,
+				F702BC3321F9542600685927 /* MainTabBar.swift in Sources */,
 				F7DFC56D21F81DB800FDA62C /* EventsStruct.swift in Sources */,
 				F710D80C21F56EE30046FEB6 /* HomeVC.swift in Sources */,
-				F7DFC57621F8683200FDA62C /* AccountPageView.swift in Sources */,
 				F710D82021F580B40046FEB6 /* NewsCell.swift in Sources */,
+				F702BC3721F9ADF700685927 /* KeyChainSwift.swift in Sources */,
 				F710D80A21F56EE30046FEB6 /* AppDelegate.swift in Sources */,
 				F710D83021F5C9560046FEB6 /* BrowseVC.swift in Sources */,
 				F789E6E421F7216600E147F1 /* AccountVC.swift in Sources */,
 				F7D4E4B221F6D8BA008293E4 /* RegisterVC.swift in Sources */,
 				F710D83221F5C9770046FEB6 /* BrowseCell.swift in Sources */,
 				F7DFC56F21F81DF100FDA62C /* CategoriesStruct.swift in Sources */,
+				F702BC3521F97ACA00685927 /* NearVC.swift in Sources */,
 				F710D82921F587B10046FEB6 /* PopularCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
