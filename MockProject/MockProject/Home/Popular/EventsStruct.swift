@@ -1,18 +1,28 @@
 import Foundation
 
 // MARK: - Struct Event
-struct MainEvent: Codable, Equatable {
+struct MainEvent: Decodable, Encodable {
     let status: Int
     let response: ResponseEvent
 }
 
-struct ResponseEvent: Codable, Equatable {
+struct MainEventDetail: Decodable, Encodable {
+    let status: Int
+    let response: ResponseEventDetail
+}
+
+struct ResponseEvent: Decodable, Encodable  {
     let events: [Events]
 }
 
-struct Events: Codable, Equatable {
+struct ResponseEventDetail: Decodable, Encodable  {
+    let events: Events
+}
+
+struct Events: Decodable, Encodable {
     let id: Int
     let status: Int
+    let link: String?
     let photo: String?
     let name: String?
     let description_raw: String?
@@ -29,13 +39,19 @@ struct Events: Codable, Equatable {
     let going_count: Int?
     let went_count: Int?
     let venue: Venue
+    let category: Categories?
 }
 
-struct Venue: Codable, Equatable {
+struct Venue: Decodable, Encodable {
     let id: Int?
     let name: String?
     let type: Int?
     let description: String?
+    let contact_phone: String?
+    let contact_address: String?
+    let geo_area: String?
+    let geo_long: String?
+    let geo_lat: String?
     let schedule_openinghour: String?
     let schedule_closinghour: String?
     let schedule_closed: String?

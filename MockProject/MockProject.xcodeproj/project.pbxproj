@@ -24,6 +24,8 @@
 		F710D82E21F58CD20046FEB6 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F710D82D21F58CD20046FEB6 /* HomePageView.swift */; };
 		F710D83021F5C9560046FEB6 /* BrowseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F710D82F21F5C9560046FEB6 /* BrowseVC.swift */; };
 		F710D83221F5C9770046FEB6 /* BrowseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F710D83121F5C9770046FEB6 /* BrowseCell.swift */; };
+		F721B99F21FAF705005B1C26 /* EventsByCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F721B99E21FAF705005B1C26 /* EventsByCategoryVC.swift */; };
+		F721B9A121FAF753005B1C26 /* EventsByCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F721B9A021FAF753005B1C26 /* EventsByCategoryCell.swift */; };
 		F789E6E421F7216600E147F1 /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F789E6E321F7216600E147F1 /* AccountVC.swift */; };
 		F7D4E4B221F6D8BA008293E4 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D4E4B121F6D8BA008293E4 /* RegisterVC.swift */; };
 		F7D4E4B421F6D913008293E4 /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D4E4B321F6D913008293E4 /* LogInVC.swift */; };
@@ -53,6 +55,8 @@
 		F710D82D21F58CD20046FEB6 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
 		F710D82F21F5C9560046FEB6 /* BrowseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseVC.swift; sourceTree = "<group>"; };
 		F710D83121F5C9770046FEB6 /* BrowseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseCell.swift; sourceTree = "<group>"; };
+		F721B99E21FAF705005B1C26 /* EventsByCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsByCategoryVC.swift; sourceTree = "<group>"; };
+		F721B9A021FAF753005B1C26 /* EventsByCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsByCategoryCell.swift; sourceTree = "<group>"; };
 		F789E6E321F7216600E147F1 /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
 		F7D4E4B121F6D8BA008293E4 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		F7D4E4B321F6D913008293E4 /* LogInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
@@ -95,6 +99,7 @@
 			children = (
 				F710D80921F56EE30046FEB6 /* AppDelegate.swift */,
 				F710D82321F582750046FEB6 /* ExtensionCode.swift */,
+				F702BC3221F9542600685927 /* MainTabBar.swift */,
 				F710D83321F5D5D30046FEB6 /* Home */,
 				F710D83421F5D5DF0046FEB6 /* Categories */,
 				F7DFC57221F81ECF00FDA62C /* My Page */,
@@ -102,7 +107,6 @@
 				F710D81021F56EE40046FEB6 /* Assets.xcassets */,
 				F710D81221F56EE40046FEB6 /* LaunchScreen.storyboard */,
 				F710D81521F56EE40046FEB6 /* Info.plist */,
-				F702BC3221F9542600685927 /* MainTabBar.swift */,
 				F702BC3421F97ACA00685927 /* NearVC.swift */,
 			);
 			path = MockProject;
@@ -145,6 +149,8 @@
 			children = (
 				F710D82F21F5C9560046FEB6 /* BrowseVC.swift */,
 				F710D83121F5C9770046FEB6 /* BrowseCell.swift */,
+				F721B99E21FAF705005B1C26 /* EventsByCategoryVC.swift */,
+				F721B9A021FAF753005B1C26 /* EventsByCategoryCell.swift */,
 				F7DFC56E21F81DF100FDA62C /* CategoriesStruct.swift */,
 			);
 			path = Categories;
@@ -234,8 +240,10 @@
 			files = (
 				F710D82721F5877C0046FEB6 /* PopularVC.swift in Sources */,
 				F710D82B21F588030046FEB6 /* PopularDetailVC.swift in Sources */,
+				F721B9A121FAF753005B1C26 /* EventsByCategoryCell.swift in Sources */,
 				F7D4E4B421F6D913008293E4 /* LogInVC.swift in Sources */,
 				F710D81E21F57FFF0046FEB6 /* NewsVC.swift in Sources */,
+				F721B99F21FAF705005B1C26 /* EventsByCategoryVC.swift in Sources */,
 				F7DFC56B21F81D7F00FDA62C /* NewsStruct.swift in Sources */,
 				F710D82E21F58CD20046FEB6 /* HomePageView.swift in Sources */,
 				F7DFC57121F81EAF00FDA62C /* AccountStruct.swift in Sources */,

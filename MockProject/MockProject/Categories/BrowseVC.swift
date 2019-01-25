@@ -51,5 +51,11 @@ extension BrowseVC: UITableViewDataSource, UITableViewDelegate, UISearchBarDeleg
         return 40
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let certifier = "EventsByCategoryVC"
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: certifier) as! EventsByCategoryVC
+        vc.categoryId = self.categories[indexPath.row].id
+        present(vc, animated: true, completion: nil)
+    }
     
 }

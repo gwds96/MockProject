@@ -87,9 +87,7 @@ extension PopularVC: UITableViewDelegate, UITableViewDataSource {
             vc.eventImg = #imageLiteral(resourceName: "Noimage")
         }
         vc.eventTitle = events[indexPath.row].name
-        vc.eventDetail = events[indexPath.row].description_raw?.htmlToString
-        vc.eventGoing = String(events[indexPath.row].going_count ?? 0)
-        vc.eventWent = String(events[indexPath.row].went_count ?? 0)
+        vc.eventId = events[indexPath.row].id
         self.present(vc, animated: true, completion: nil)
     }
 }

@@ -25,7 +25,6 @@ class MainTabBar: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         homeVC!.tabBarItem.title = "Home"
         nearVC!.tabBarItem.title = "Near"
         categoriesVC!.tabBarItem.title = "Browse"
