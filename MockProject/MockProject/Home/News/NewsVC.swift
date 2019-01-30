@@ -10,6 +10,7 @@ class NewsVC: UIViewController {
     
     let imageCache = NSCache<AnyObject, AnyObject>()
     
+    // MARK: Func cache image
     func takeImage(url: String) -> UIImage {
         var image: UIImage? = nil
         
@@ -61,7 +62,7 @@ extension NewsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let certifier = "NewsCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: certifier, for: indexPath) as! NewsCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: certifier) as! NewsCell
         cell.titleLabel.text = news[indexPath.row].title ?? ""
         cell.feedLabel.text = news[indexPath.row].feed ?? ""
         cell.thumbImage.image = takeImage(url: news[indexPath.row].thumb_img!)

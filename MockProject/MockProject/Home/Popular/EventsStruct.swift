@@ -1,25 +1,26 @@
 import Foundation
 
 // MARK: - Struct Event
-struct MainEvent: Decodable, Encodable {
+struct MainEvent: Codable {
     let status: Int
     let response: ResponseEvent
 }
 
-struct MainEventDetail: Decodable, Encodable {
+struct MainEventDetail: Codable {
     let status: Int
     let response: ResponseEventDetail
 }
 
-struct ResponseEvent: Decodable, Encodable  {
-    let events: [Events]
+struct ResponseEvent: Codable  {
+    let events: [Events]?
+    let venues: [Venue]?
 }
 
-struct ResponseEventDetail: Decodable, Encodable  {
+struct ResponseEventDetail: Codable  {
     let events: Events
 }
 
-struct Events: Decodable, Encodable {
+struct Events: Codable {
     let id: Int
     let status: Int
     let link: String?
@@ -42,7 +43,7 @@ struct Events: Decodable, Encodable {
     let category: Categories?
 }
 
-struct Venue: Decodable, Encodable {
+struct Venue: Codable {
     let id: Int?
     let name: String?
     let type: Int?

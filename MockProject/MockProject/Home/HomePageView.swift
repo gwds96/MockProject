@@ -27,6 +27,7 @@ class HomePageView: UIPageViewController {
 
 extension HomePageView: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
+    // MARK: Move page by buttons
     func moveToPage(_ index: Int) {
         if index == 1 {
             setViewControllers([subViewControllers[index]], direction: .forward, animated: true, completion: nil)
@@ -43,6 +44,7 @@ extension HomePageView: UIPageViewControllerDataSource, UIPageViewControllerDele
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         currentIndex = subViewControllers.index(of: viewController) ?? 0
+        delegateB?.colorOfButton(currentIndex)
         if currentIndex <= 0 {
             return nil
         }
@@ -52,19 +54,11 @@ extension HomePageView: UIPageViewControllerDataSource, UIPageViewControllerDele
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         currentIndex = subViewControllers.index(of: viewController) ?? 0
+        delegateB?.colorOfButton(currentIndex)
         if currentIndex >= subViewControllers.count - 1 {
             return nil
         }
         currentIndex += 1
         return subViewControllers[currentIndex]
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if previousViewControllers[0] == subViewControllers[1] && completed == true {
-            currentIndex = 0
-        }else if previousViewControllers[0] == subViewControllers[0] && completed == true {
-            currentIndex = 1
-        }
-        delegateB?.colorOfButton(currentIndex)
     }
 }

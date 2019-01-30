@@ -1,11 +1,11 @@
 import Foundation
 
 // MARK: - Struct Account
-struct Account: Decodable, Encodable {
+struct Account: Codable {
     let status: Int?
     let response: ResponseAccount?
 }
 
-struct ResponseAccount: Decodable, Encodable {
+struct ResponseAccount: Codable {
     let token: String
 }

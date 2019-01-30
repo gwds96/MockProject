@@ -6,10 +6,12 @@ class PopularVC: UIViewController {
     
     let urlEvents = URL(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listPopularEvents")!
     
+//    var numberPlaceDelegate: NumberPlaceOfEventDelegate?
     var events = [Events]()
     
     let imageCache = NSCache<AnyObject, AnyObject>()
     
+    // MARK: func cache image
     func takeImage(url: String) -> UIImage {
         var image: UIImage? = nil
         
@@ -44,13 +46,14 @@ class PopularVC: UIViewController {
                     return
                 }
                 DispatchQueue.main.async {
-                    self.events = obj.response.events
+                    self.events = obj.response.events ?? []
                     self.tableView.reloadData()
                 }
             }
         }
         task.resume()
     }
+
 }
 
 extension PopularVC: UITableViewDelegate, UITableViewDataSource {
@@ -60,7 +63,7 @@ extension PopularVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let certifier = "PopularCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: certifier, for: indexPath) as! PopularCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: certifier) as! PopularCell
         if let urlString = events[indexPath.row].photo {
             cell.eventImage.image = takeImage(url: urlString)
         } else {
@@ -88,6 +91,7 @@ extension PopularVC: UITableViewDelegate, UITableViewDataSource {
         }
         vc.eventTitle = events[indexPath.row].name
         vc.eventId = events[indexPath.row].id
+        vc.venue_id = String(events[indexPath.row].venue.id!)
         self.present(vc, animated: true, completion: nil)
     }
 }

@@ -1,16 +1,16 @@
 import Foundation
 
 // MARK: - Struct News
-struct MainNews: Codable, Equatable {
+struct MainNews: Codable {
     let status: Int?
     let response: ResponseNews
 }
 
-struct ResponseNews: Codable, Equatable {
+struct ResponseNews: Codable {
     let news: [News]
 }
 
-struct News: Codable, Equatable {
+struct News: Codable {
     let id: Int?
     let feed: String?
     let title: String?

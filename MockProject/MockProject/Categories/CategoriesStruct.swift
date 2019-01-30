@@ -1,16 +1,16 @@
 import Foundation
 
 // MARK: - Struct Categories
-struct MainCategory: Decodable, Encodable {
+struct MainCategory: Codable {
     let status: Int?
     let response: ResponseCategory
 }
 
-struct ResponseCategory: Decodable, Encodable {
+struct ResponseCategory: Codable {
     let categories: [Categories]
 }
 
-struct Categories: Decodable, Encodable {
+struct Categories: Codable {
     let id: Int?
     let name: String?
     let slug: String?

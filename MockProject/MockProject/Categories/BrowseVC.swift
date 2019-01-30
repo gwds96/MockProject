@@ -10,9 +10,6 @@ class BrowseVC: UIViewController {
     
     var categories = [Categories]()
     
-    
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         let task = URLSession.shared.dataTask(with: urlCategory) {(data, response, error) in
@@ -35,14 +32,14 @@ class BrowseVC: UIViewController {
     }
 }
 
-extension BrowseVC: UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+extension BrowseVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let certifier = "BrowseCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: certifier, for: indexPath) as! BrowseCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: certifier) as! BrowseCell
         cell.categoryLabel.text = categories[indexPath.row].name ?? ""
         return cell
     }
@@ -55,7 +52,18 @@ extension BrowseVC: UITableViewDataSource, UITableViewDelegate, UISearchBarDeleg
         let certifier = "EventsByCategoryVC"
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: certifier) as! EventsByCategoryVC
         vc.categoryId = self.categories[indexPath.row].id
+        vc.choose = "Category"
         present(vc, animated: true, completion: nil)
     }
-    
+}
+
+// MARK: Send data to search for POST REQUEST
+extension BrowseVC: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let certifier = "EventsByCategoryVC"
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: certifier) as! EventsByCategoryVC
+        vc.typeOfFinding = searchBar.text ?? ""
+        vc.choose = "Search"
+        present(vc, animated: true, completion: nil)
+    }
 }

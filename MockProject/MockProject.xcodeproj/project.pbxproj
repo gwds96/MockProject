@@ -26,6 +26,8 @@
 		F710D83221F5C9770046FEB6 /* BrowseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F710D83121F5C9770046FEB6 /* BrowseCell.swift */; };
 		F721B99F21FAF705005B1C26 /* EventsByCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F721B99E21FAF705005B1C26 /* EventsByCategoryVC.swift */; };
 		F721B9A121FAF753005B1C26 /* EventsByCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F721B9A021FAF753005B1C26 /* EventsByCategoryCell.swift */; };
+		F749DEF321FEDBA200EC5EDE /* NearCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F749DEF221FEDBA200EC5EDE /* NearCollectionCell.swift */; };
+		F749DEF521FEE0BE00EC5EDE /* ResetPassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F749DEF421FEE0BE00EC5EDE /* ResetPassVC.swift */; };
 		F789E6E421F7216600E147F1 /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F789E6E321F7216600E147F1 /* AccountVC.swift */; };
 		F7D4E4B221F6D8BA008293E4 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D4E4B121F6D8BA008293E4 /* RegisterVC.swift */; };
 		F7D4E4B421F6D913008293E4 /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D4E4B321F6D913008293E4 /* LogInVC.swift */; };
@@ -33,6 +35,14 @@
 		F7DFC56D21F81DB800FDA62C /* EventsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DFC56C21F81DB800FDA62C /* EventsStruct.swift */; };
 		F7DFC56F21F81DF100FDA62C /* CategoriesStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DFC56E21F81DF100FDA62C /* CategoriesStruct.swift */; };
 		F7DFC57121F81EAF00FDA62C /* AccountStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DFC57021F81EAF00FDA62C /* AccountStruct.swift */; };
+		F7E322A721FFFB2500394B3F /* MyPageFatherVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E322A621FFFB2500394B3F /* MyPageFatherVC.swift */; };
+		F7E322AA21FFFB7D00394B3F /* MyPagePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E322A921FFFB7D00394B3F /* MyPagePageView.swift */; };
+		F7E322AC21FFFCC800394B3F /* WentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E322AB21FFFCC800394B3F /* WentVC.swift */; };
+		F7E322AE21FFFCDE00394B3F /* WillGoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E322AD21FFFCDE00394B3F /* WillGoVC.swift */; };
+		F7E322B021FFFCF700394B3F /* FollowedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E322AF21FFFCF700394B3F /* FollowedVC.swift */; };
+		F7E322B222000CC100394B3F /* FollowedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E322B122000CC100394B3F /* FollowedCell.swift */; };
+		F7E322B4220059E400394B3F /* WillGoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E322B3220059E400394B3F /* WillGoCell.swift */; };
+		F7E322B6220059F900394B3F /* WentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E322B5220059F900394B3F /* WentCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +67,8 @@
 		F710D83121F5C9770046FEB6 /* BrowseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseCell.swift; sourceTree = "<group>"; };
 		F721B99E21FAF705005B1C26 /* EventsByCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsByCategoryVC.swift; sourceTree = "<group>"; };
 		F721B9A021FAF753005B1C26 /* EventsByCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsByCategoryCell.swift; sourceTree = "<group>"; };
+		F749DEF221FEDBA200EC5EDE /* NearCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearCollectionCell.swift; sourceTree = "<group>"; };
+		F749DEF421FEE0BE00EC5EDE /* ResetPassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPassVC.swift; sourceTree = "<group>"; };
 		F789E6E321F7216600E147F1 /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
 		F7D4E4B121F6D8BA008293E4 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		F7D4E4B321F6D913008293E4 /* LogInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
@@ -64,6 +76,14 @@
 		F7DFC56C21F81DB800FDA62C /* EventsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsStruct.swift; sourceTree = "<group>"; };
 		F7DFC56E21F81DF100FDA62C /* CategoriesStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesStruct.swift; sourceTree = "<group>"; };
 		F7DFC57021F81EAF00FDA62C /* AccountStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStruct.swift; sourceTree = "<group>"; };
+		F7E322A621FFFB2500394B3F /* MyPageFatherVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageFatherVC.swift; sourceTree = "<group>"; };
+		F7E322A921FFFB7D00394B3F /* MyPagePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePageView.swift; sourceTree = "<group>"; };
+		F7E322AB21FFFCC800394B3F /* WentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WentVC.swift; sourceTree = "<group>"; };
+		F7E322AD21FFFCDE00394B3F /* WillGoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WillGoVC.swift; sourceTree = "<group>"; };
+		F7E322AF21FFFCF700394B3F /* FollowedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedVC.swift; sourceTree = "<group>"; };
+		F7E322B122000CC100394B3F /* FollowedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedCell.swift; sourceTree = "<group>"; };
+		F7E322B3220059E400394B3F /* WillGoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WillGoCell.swift; sourceTree = "<group>"; };
+		F7E322B5220059F900394B3F /* WentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WentCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,13 +121,13 @@
 				F710D82321F582750046FEB6 /* ExtensionCode.swift */,
 				F702BC3221F9542600685927 /* MainTabBar.swift */,
 				F710D83321F5D5D30046FEB6 /* Home */,
+				F749DEF621FEE6A400EC5EDE /* Near */,
 				F710D83421F5D5DF0046FEB6 /* Categories */,
 				F7DFC57221F81ECF00FDA62C /* My Page */,
 				F710D80D21F56EE30046FEB6 /* Main.storyboard */,
 				F710D81021F56EE40046FEB6 /* Assets.xcassets */,
 				F710D81221F56EE40046FEB6 /* LaunchScreen.storyboard */,
 				F710D81521F56EE40046FEB6 /* Info.plist */,
-				F702BC3421F97ACA00685927 /* NearVC.swift */,
 			);
 			path = MockProject;
 			sourceTree = "<group>";
@@ -156,15 +176,65 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
+		F749DEF621FEE6A400EC5EDE /* Near */ = {
+			isa = PBXGroup;
+			children = (
+				F702BC3421F97ACA00685927 /* NearVC.swift */,
+				F749DEF221FEDBA200EC5EDE /* NearCollectionCell.swift */,
+			);
+			path = Near;
+			sourceTree = "<group>";
+		};
 		F7DFC57221F81ECF00FDA62C /* My Page */ = {
 			isa = PBXGroup;
 			children = (
-				F7D4E4B321F6D913008293E4 /* LogInVC.swift */,
-				F7D4E4B121F6D8BA008293E4 /* RegisterVC.swift */,
+				F7E322A821FFFB4700394B3F /* Login */,
+				F7E322A621FFFB2500394B3F /* MyPageFatherVC.swift */,
+				F7E322A921FFFB7D00394B3F /* MyPagePageView.swift */,
+				F7E322B722005A1100394B3F /* Went */,
+				F7E322B822005A1A00394B3F /* WillGo */,
+				F7E322B922005A2500394B3F /* Followed */,
 				F789E6E321F7216600E147F1 /* AccountVC.swift */,
 				F7DFC57021F81EAF00FDA62C /* AccountStruct.swift */,
 			);
 			path = "My Page";
+			sourceTree = "<group>";
+		};
+		F7E322A821FFFB4700394B3F /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				F7D4E4B321F6D913008293E4 /* LogInVC.swift */,
+				F7D4E4B121F6D8BA008293E4 /* RegisterVC.swift */,
+				F749DEF421FEE0BE00EC5EDE /* ResetPassVC.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		F7E322B722005A1100394B3F /* Went */ = {
+			isa = PBXGroup;
+			children = (
+				F7E322AB21FFFCC800394B3F /* WentVC.swift */,
+				F7E322B5220059F900394B3F /* WentCell.swift */,
+			);
+			path = Went;
+			sourceTree = "<group>";
+		};
+		F7E322B822005A1A00394B3F /* WillGo */ = {
+			isa = PBXGroup;
+			children = (
+				F7E322AD21FFFCDE00394B3F /* WillGoVC.swift */,
+				F7E322B3220059E400394B3F /* WillGoCell.swift */,
+			);
+			path = WillGo;
+			sourceTree = "<group>";
+		};
+		F7E322B922005A2500394B3F /* Followed */ = {
+			isa = PBXGroup;
+			children = (
+				F7E322AF21FFFCF700394B3F /* FollowedVC.swift */,
+				F7E322B122000CC100394B3F /* FollowedCell.swift */,
+			);
+			path = Followed;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,22 +309,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				F710D82721F5877C0046FEB6 /* PopularVC.swift in Sources */,
+				F7E322B021FFFCF700394B3F /* FollowedVC.swift in Sources */,
 				F710D82B21F588030046FEB6 /* PopularDetailVC.swift in Sources */,
+				F7E322AA21FFFB7D00394B3F /* MyPagePageView.swift in Sources */,
 				F721B9A121FAF753005B1C26 /* EventsByCategoryCell.swift in Sources */,
 				F7D4E4B421F6D913008293E4 /* LogInVC.swift in Sources */,
+				F7E322AE21FFFCDE00394B3F /* WillGoVC.swift in Sources */,
 				F710D81E21F57FFF0046FEB6 /* NewsVC.swift in Sources */,
+				F749DEF521FEE0BE00EC5EDE /* ResetPassVC.swift in Sources */,
 				F721B99F21FAF705005B1C26 /* EventsByCategoryVC.swift in Sources */,
+				F7E322B6220059F900394B3F /* WentCell.swift in Sources */,
 				F7DFC56B21F81D7F00FDA62C /* NewsStruct.swift in Sources */,
 				F710D82E21F58CD20046FEB6 /* HomePageView.swift in Sources */,
+				F7E322A721FFFB2500394B3F /* MyPageFatherVC.swift in Sources */,
 				F7DFC57121F81EAF00FDA62C /* AccountStruct.swift in Sources */,
 				F710D82421F582750046FEB6 /* ExtensionCode.swift in Sources */,
 				F702BC3321F9542600685927 /* MainTabBar.swift in Sources */,
+				F7E322B222000CC100394B3F /* FollowedCell.swift in Sources */,
 				F7DFC56D21F81DB800FDA62C /* EventsStruct.swift in Sources */,
 				F710D80C21F56EE30046FEB6 /* HomeVC.swift in Sources */,
+				F749DEF321FEDBA200EC5EDE /* NearCollectionCell.swift in Sources */,
 				F710D82021F580B40046FEB6 /* NewsCell.swift in Sources */,
 				F702BC3721F9ADF700685927 /* KeyChainSwift.swift in Sources */,
+				F7E322AC21FFFCC800394B3F /* WentVC.swift in Sources */,
 				F710D80A21F56EE30046FEB6 /* AppDelegate.swift in Sources */,
 				F710D83021F5C9560046FEB6 /* BrowseVC.swift in Sources */,
+				F7E322B4220059E400394B3F /* WillGoCell.swift in Sources */,
 				F789E6E421F7216600E147F1 /* AccountVC.swift in Sources */,
 				F7D4E4B221F6D8BA008293E4 /* RegisterVC.swift in Sources */,
 				F710D83221F5C9770046FEB6 /* BrowseCell.swift in Sources */,
@@ -409,6 +489,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X7YH7J65S5;
 				INFOPLIST_FILE = MockProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -427,6 +508,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X7YH7J65S5;
 				INFOPLIST_FILE = MockProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

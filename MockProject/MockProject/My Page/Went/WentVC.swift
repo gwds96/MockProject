@@ -1,26 +1,22 @@
 import UIKit
 
-class EventsByCategoryVC: UIViewController {
-
+class WentVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
-    var choose: String?
-    var typeOfFinding = ""
-    var categoryId: Int?
-    var eventByCategory = [Events]()
+    let keyChain = KeychainSwift()
+    var urlWent = URLComponents(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listMyEvents")!
+    var event = [Events]()
+    
     let imageCache = NSCache<AnyObject, AnyObject>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var urlEventsByCategory = URLComponents(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listEventsByCategory")!
-        if choose == "Category" {
-            urlEventsByCategory = URLComponents(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listEventsByCategory")!
-            urlEventsByCategory.queryItems = [URLQueryItem(name: "category_id", value: "\(categoryId!)")]
-        } else {
-            urlEventsByCategory = URLComponents(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/search")!
-            urlEventsByCategory.queryItems = [URLQueryItem(name: "keyword", value: "\(typeOfFinding)")]
-        }
-        let request = URLRequest(url: urlEventsByCategory.url!)
+        loadData()
+    }
+    
+    func loadData() {
+        urlWent.queryItems = [URLQueryItem(name: "token", value: "\(keyChain.get("token") ?? "")"), URLQueryItem(name: "status", value: "2")]
+        let request = URLRequest(url: urlWent.url!)
         let task = URLSession.shared.dataTask(with: request) {(result, response, error) in
             guard
                 let data = result,
@@ -32,16 +28,12 @@ class EventsByCategoryVC: UIViewController {
                     return
                 }
                 DispatchQueue.main.async {
-                    self.eventByCategory = obj.response.events ?? []
+                    self.event = obj.response.events ?? []
                     self.tableView.reloadData()
                 }
             }
         }
         task.resume()
-    }
-    
-    @IBAction func backButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
     }
     
     // MARK: Cache image
@@ -66,25 +58,27 @@ class EventsByCategoryVC: UIViewController {
         }
         return UIImage.init(named: "Noimage")!
     }
+    
+    
 }
 
-extension EventsByCategoryVC: UITableViewDataSource, UITableViewDelegate {
+extension WentVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return eventByCategory.count
+        return event.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let certifier = "EventsByCategoryCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: certifier) as! EventsByCategoryCell
-        if let urlString = eventByCategory[indexPath.row].photo {
-            cell.eventImage.image = takeImage(url: urlString)
+        let certifier = "WentCell"
+        let cell = tableView.dequeueReusableCell(withIdentifier: certifier) as! WentCell
+        cell.nameLabel.text = event[indexPath.row].name
+        cell.localLabel.text = event[indexPath.row].venue.name
+        cell.dateLabel.text = event[indexPath.row].schedule_start_date
+        cell.timeLabel.text = event[indexPath.row].schedule_start_time
+        if let urlImage = event[indexPath.row].photo {
+        cell.eventImage.image = takeImage(url: urlImage)
         } else {
             cell.eventImage.image = #imageLiteral(resourceName: "Noimage")
         }
-        cell.eventTitleLabel.text = eventByCategory[indexPath.row].name
-        cell.eventDateLabel.text = "🗓 \(eventByCategory[indexPath.row].schedule_start_date ?? "")"
-        cell.eventTimeLabel.text = "⏰ \(eventByCategory[indexPath.row].schedule_start_time ?? "")"
-        cell.eventPlaceLabel.text = "📍 \(eventByCategory[indexPath.row].venue.name ?? "")"
         return cell
     }
     
@@ -92,17 +86,17 @@ extension EventsByCategoryVC: UITableViewDataSource, UITableViewDelegate {
         return 120
     }
     
-    // MARK: Get detail of the event
+    // MARK: Get detail for the event
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let certifier = "PopularDetailVC"
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: certifier) as! PopularDetailVC
-        vc.eventId = eventByCategory[indexPath.row].id
-        if let urlString = eventByCategory[indexPath.row].photo {
-            vc.eventImg = takeImage(url: urlString)
+        vc.eventId = event[indexPath.row].id
+        if let urlImage = event[indexPath.row].photo {
+            vc.eventImg = takeImage(url: urlImage)
         } else {
             vc.eventImg = #imageLiteral(resourceName: "Noimage")
         }
-        vc.eventTitle = eventByCategory[indexPath.row].name
+        vc.eventTitle = event[indexPath.row].name
         present(vc, animated: true, completion: nil)
     }
 }

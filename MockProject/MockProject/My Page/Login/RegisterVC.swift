@@ -16,6 +16,7 @@ class RegisterVC: UIViewController {
     @IBOutlet weak var noticeRepassLbl: UILabel!
     @IBOutlet weak var repassTextField: UITextField!
     @IBOutlet weak var noticeLbl: UILabel!
+    @IBOutlet weak var spinActivity: UIActivityIndicatorView!
     
     weak var sendBackInfoDelegate: SendBackInfoDelegate?
     
@@ -68,8 +69,10 @@ class RegisterVC: UIViewController {
                 let obj = try JSONDecoder().decode(Account.self, from: data)
                 DispatchQueue.main.async {
                     if obj.status == 0 {
+                        self.spinActivity.stopAnimating()
                         self.noticeLbl.text = "Register is failed, please try again!!"
                     } else {
+                        self.spinActivity.stopAnimating()
                         self.noticeLbl.text = ""
                         self.sendBackInfoDelegate?.emailAndPass(email: self.mailTextField.text!, pass: self.passTextField.text!)
                         self.dismiss(animated: true, completion: nil)
@@ -93,6 +96,7 @@ class RegisterVC: UIViewController {
             + noticeRepassLbl.text!
         let checkTextEmpty = userTextField.hasText && mailTextField.hasText && passTextField.hasText && repassTextField.hasText
         if checkNoticeEmpty == "" && checkTextEmpty && repassTextField.text == passTextField.text {
+            spinActivity.startAnimating()
             postRequestRegister()
         }
     }
