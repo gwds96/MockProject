@@ -247,6 +247,7 @@ class PopularDetailVC: UIViewController {
                             self.haveWentButton.backgroundColor = UIColor.white
                             self.willGoButton.backgroundColor = UIColor.white
                         }
+                        self.reloadData()
                     }
                 }
             }
@@ -272,20 +273,18 @@ class PopularDetailVC: UIViewController {
     @IBAction func willGoButton(_ sender: Any) {
             status = 1
             doUpdateEvent()
-            reloadData()
+        
     }
     
     // MARK: Do click have went
     @IBAction func wentButton(_ sender: Any) {
             status = 2
             doUpdateEvent()
-            reloadData()
     }
     
     // MARK: Do click cancel
     @IBAction func cancelButton(_ sender: Any) {
         status = 0
         doUpdateEvent()
-        reloadData()
     }
 }
