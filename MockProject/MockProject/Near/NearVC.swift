@@ -7,8 +7,8 @@ class NearVC: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var long: Double?
-    var lat: Double?
+    var long = Double()
+    var lat = Double()
     
     //    var popularConform: PopularVC?
     var nearEvents = [Events]()
@@ -42,24 +42,33 @@ class NearVC: UIViewController {
         return UIImage.init(named: "Noimage")!
     }
     
-    // MARK:
-    func checkLocationAuthorizationStatus() {
+    // MARK: Display to your location
+    func centerMapOnLocation(location: CLLocation) {
+        let coordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
+        self.mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
+            mapView.showsUserLocation = true
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        checkLocationAuthorizationStatus()
+    // MARK: Button get your location
+    @IBAction func myLocationButton(_ sender: Any) {
+        locationManager.startUpdatingLocation()
+        centerMapOnLocation(location: CLLocation(latitude: lat, longitude: long))
         getEventNear()
     }
     
     // MARK: Get nearly events
     func getEventNear() {
-        urlNear.queryItems = [URLQueryItem(name: "radius", value: "2000"), URLQueryItem(name: "longitue", value: "\(long ?? 105.781000)"), URLQueryItem(name: "latitude", value: "\(lat ?? 21.017992)")]
+        urlNear.queryItems = [URLQueryItem(name: "radius", value: "2000"), URLQueryItem(name: "longitue", value: "\(long)"), URLQueryItem(name: "latitude", value: "\(lat)")]
         let request = URLRequest(url: urlNear.url!)
         let task = URLSession.shared.dataTask(with: request) {(result, response, error) in
             guard
@@ -71,8 +80,14 @@ class NearVC: UIViewController {
                 guard let obj = try? JSONDecoder().decode(MainEvent.self, from: data) else {
                     return
                 }
+                self.nearEvents = obj.response.events ?? []
+                for i in 0..<self.nearEvents.count {
+                    let place = Artwork(title: self.nearEvents[i].name ?? "", locationName: self.nearEvents[i].venue.name ?? "", discipline: self.nearEvents[i].venue.description ?? "", coordinate: CLLocationCoordinate2D(latitude: Double(self.nearEvents[i].venue.geo_lat!)!, longitude: Double(self.nearEvents[i].venue.geo_long!)!))
+                    DispatchQueue.main.async {
+                        self.mapView.addAnnotation(place)
+                    }
+                }
                 DispatchQueue.main.async {
-                    self.nearEvents = obj.response.events ?? []
                     self.collectionView.reloadData()
                 }
             }
@@ -87,11 +102,12 @@ extension NearVC: CLLocationManagerDelegate {
             long = location.coordinate.longitude
             lat = location.coordinate.latitude
         }
+        
     }
 }
 
 // MARK: Show nearly events
-extension NearVC: UICollectionViewDataSource {
+extension NearVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -116,5 +132,18 @@ extension NearVC: UICollectionViewDataSource {
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let certifier = "PopularDetailVC"
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: certifier) as! PopularDetailVC
+        vc.eventId = nearEvents[indexPath.row].id
+        if let urlImage = nearEvents[indexPath.row].photo {
+            vc.eventImg = takeImage(url: urlImage)
+        } else {
+            vc.eventImg = #imageLiteral(resourceName: "Noimage")
+        }
+        vc.eventTitle = nearEvents[indexPath.row].name
+        vc.venue_id = String(nearEvents[indexPath.row].venue.id!)
+        present(vc, animated: true, completion: nil)
+    }
     
 }

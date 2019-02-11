@@ -32,6 +32,15 @@ class PopularDetailVC: UIViewController {
     var eventWentIdArray: [Int] = []
     
     override func viewDidLoad() {
+        cancelButton.setTitleColor(UIColor.red, for: .normal)
+        cancelButton.layer.backgroundColor = #colorLiteral(red: 0.8133895397, green: 0.9217470288, blue: 0.9522448182, alpha: 0.3857020548)
+        cancelButton.layer.cornerRadius = 5
+        followButton.layer.backgroundColor = #colorLiteral(red: 0.8133895397, green: 0.9217470288, blue: 0.9522448182, alpha: 0.3857020548)
+        followButton.layer.cornerRadius = 5
+        willGoButton.layer.backgroundColor = #colorLiteral(red: 0.8133895397, green: 0.9217470288, blue: 0.9522448182, alpha: 0.3857020548)
+        willGoButton.layer.cornerRadius = 5
+        haveWentButton.layer.backgroundColor = #colorLiteral(red: 0.8133895397, green: 0.9217470288, blue: 0.9522448182, alpha: 0.3857020548)
+        haveWentButton.layer.cornerRadius = 5
         loadData()
     }
     
@@ -146,20 +155,26 @@ class PopularDetailVC: UIViewController {
                     if self.venueIdArray.contains(obj.response.events.venue.id!) {
                         self.followButton.setTitle("Followed", for: .normal)
                         self.followButton.backgroundColor = #colorLiteral(red: 0.0775340572, green: 0.2096011639, blue: 0.3246611953, alpha: 0.3)
+                        self.followButton.setTitleColor(UIColor.red, for: .normal)
                     } else {
                         self.followButton.setTitle("Follow", for: .normal)
+                        self.followButton.setTitleColor(UIColor.blue, for: .normal)
                     }
                     
                     if self.eventGoIdArray.contains(obj.response.events.id) {
                         self.willGoButton.backgroundColor = #colorLiteral(red: 0.0775340572, green: 0.2096011639, blue: 0.3246611953, alpha: 0.3)
+                        self.willGoButton.setTitleColor(UIColor.red, for: .normal)
                     } else {
-                        self.willGoButton.backgroundColor = UIColor.white
+                        self.willGoButton.backgroundColor = #colorLiteral(red: 0.8133895397, green: 0.9217470288, blue: 0.9522448182, alpha: 0.3857020548)
+                        self.willGoButton.setTitleColor(UIColor.blue, for: .normal)
                     }
                     
                     if self.eventWentIdArray.contains(obj.response.events.id) {
                         self.haveWentButton.backgroundColor = #colorLiteral(red: 0.0775340572, green: 0.2096011639, blue: 0.3246611953, alpha: 0.3)
+                        self.haveWentButton.setTitleColor(UIColor.red, for: .normal)
                     } else {
-                        self.haveWentButton.backgroundColor = UIColor.white
+                        self.haveWentButton.backgroundColor = #colorLiteral(red: 0.8133895397, green: 0.9217470288, blue: 0.9522448182, alpha: 0.3857020548)
+                        self.haveWentButton.setTitleColor(UIColor.blue, for: .normal)
                     }
                 }
             }
@@ -207,6 +222,7 @@ class PopularDetailVC: UIViewController {
                 DispatchQueue.main.async {
                     if obj.status == 1 {
                         self.followButton.setTitle("Followed", for: .normal)
+                        self.followButton.setTitleColor(UIColor.red, for: .normal)
                         self.followButton.backgroundColor = #colorLiteral(red: 0.0775340572, green: 0.2096011639, blue: 0.3246611953, alpha: 0.3)
                     } else {
                     }
@@ -239,13 +255,19 @@ class PopularDetailVC: UIViewController {
                     if obj.status == 1 {
                         if self.status == 1 {
                             self.willGoButton.backgroundColor = #colorLiteral(red: 0.0775340572, green: 0.2096011639, blue: 0.3246611953, alpha: 0.3)
-                            self.haveWentButton.backgroundColor = UIColor.white
+                            self.haveWentButton.backgroundColor = #colorLiteral(red: 0.8133895397, green: 0.9217470288, blue: 0.9522448182, alpha: 0.3857020548)
+                            self.willGoButton.setTitleColor(UIColor.red, for: .normal)
+                            self.haveWentButton.setTitleColor(UIColor.blue, for: .normal)
                         } else if self.status == 2 {
                             self.haveWentButton.backgroundColor = #colorLiteral(red: 0.0775340572, green: 0.2096011639, blue: 0.3246611953, alpha: 0.3)
-                            self.willGoButton.backgroundColor = UIColor.white
+                            self.willGoButton.backgroundColor = #colorLiteral(red: 0.8133895397, green: 0.9217470288, blue: 0.9522448182, alpha: 0.3857020548)
+                            self.haveWentButton.setTitleColor(UIColor.red, for: .normal)
+                            self.willGoButton.setTitleColor(UIColor.blue, for: .normal)
                         } else {
-                            self.haveWentButton.backgroundColor = UIColor.white
-                            self.willGoButton.backgroundColor = UIColor.white
+                            self.haveWentButton.backgroundColor = #colorLiteral(red: 0.8133895397, green: 0.9217470288, blue: 0.9522448182, alpha: 0.3857020548)
+                            self.willGoButton.backgroundColor = #colorLiteral(red: 0.8133895397, green: 0.9217470288, blue: 0.9522448182, alpha: 0.3857020548)
+                            self.haveWentButton.setTitleColor(UIColor.blue, for: .normal)
+                            self.willGoButton.setTitleColor(UIColor.blue, for: .normal)
                         }
                         self.reloadData()
                     }

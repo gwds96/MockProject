@@ -14,6 +14,10 @@ class WentVC: UIViewController {
         loadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        loadData()
+    }
+    
     func loadData() {
         urlWent.queryItems = [URLQueryItem(name: "token", value: "\(keyChain.get("token") ?? "")"), URLQueryItem(name: "status", value: "2")]
         let request = URLRequest(url: urlWent.url!)
@@ -27,8 +31,8 @@ class WentVC: UIViewController {
                 guard let obj = try? JSONDecoder().decode(MainEvent.self, from: data) else {
                     return
                 }
+                self.event = obj.response.events ?? []
                 DispatchQueue.main.async {
-                    self.event = obj.response.events ?? []
                     self.tableView.reloadData()
                 }
             }
@@ -97,6 +101,7 @@ extension WentVC: UITableViewDataSource, UITableViewDelegate {
             vc.eventImg = #imageLiteral(resourceName: "Noimage")
         }
         vc.eventTitle = event[indexPath.row].name
+        vc.venue_id = String(event[indexPath.row].venue.id!)
         present(vc, animated: true, completion: nil)
     }
 }

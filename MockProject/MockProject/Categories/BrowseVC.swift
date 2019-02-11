@@ -5,7 +5,6 @@ class BrowseVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    
     let urlCategory = URL(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listCategories")!
     
     var categories = [Categories]()
@@ -65,5 +64,9 @@ extension BrowseVC: UISearchBarDelegate {
         vc.typeOfFinding = searchBar.text ?? ""
         vc.choose = "Search"
         present(vc, animated: true, completion: nil)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.endEditing(true)
     }
 }
