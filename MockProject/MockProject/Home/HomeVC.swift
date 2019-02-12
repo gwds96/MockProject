@@ -10,7 +10,7 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         newsButton.setTitleColor(UIColor.blue, for: .normal)
-        newsButton.backgroundColor = #colorLiteral(red: 0.5838350723, green: 0.9869053812, blue: 1, alpha: 0.5509417808)
+        newsButton.backgroundColor = #colorLiteral(red: 0.7305393777, green: 1, blue: 0.9652253821, alpha: 0.4)
         popularButton.setTitleColor(UIColor.black, for: .normal)
         
     }
@@ -40,11 +40,11 @@ class HomeVC: UIViewController {
 extension HomeVC: ButtonDelegate {
     func colorOfButton(_ number: Int) {
         let color0: UIColor = (number == 0) ? .blue : .black
-        let backgroundColor0: UIColor = (number == 0) ? #colorLiteral(red: 0.5838350723, green: 0.9869053812, blue: 1, alpha: 0.5509417808) : .white
+        let backgroundColor0: UIColor = (number == 0) ? #colorLiteral(red: 0.7305393777, green: 1, blue: 0.9652253821, alpha: 0.4) : .white
         newsButton.setTitleColor(color0, for: .normal)
         newsButton.backgroundColor = backgroundColor0
         let color1: UIColor = (number == 1) ? .blue : .black
-        let backgroundColor1: UIColor = (number == 1) ? #colorLiteral(red: 0.5838350723, green: 0.9869053812, blue: 1, alpha: 0.5509417808) : .white
+        let backgroundColor1: UIColor = (number == 1) ? #colorLiteral(red: 1, green: 0.8572274131, blue: 0.9413912327, alpha: 0.4) : .white
         popularButton.setTitleColor(color1, for: .normal)
         popularButton.backgroundColor = backgroundColor1
     }

@@ -11,6 +11,9 @@ class WillGoVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background went going"))
+        tableView.backgroundView?.alpha = 0.2
+        
         loadData()
     }
     
@@ -74,6 +77,7 @@ extension WillGoVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let certifier = "WillGoCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: certifier) as! WillGoCell
+        cell.backgroundColor = nil
         cell.nameLabel.text = event[indexPath.row].name
         cell.localLabel.text = event[indexPath.row].venue.name
         cell.dateLabel.text = event[indexPath.row].schedule_start_date

@@ -34,6 +34,8 @@ class NewsVC: UIViewController {
     }
     
     override func viewDidLoad() {
+        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background news"))
+        tableView.backgroundView?.alpha = 0.2
         let task = URLSession.shared.dataTask(with: urlString) {(result, response, error) in
                 guard
                     let data = result,
@@ -63,6 +65,7 @@ extension NewsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let certifier = "NewsCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: certifier) as! NewsCell
+        cell.backgroundColor = nil
         cell.titleLabel.text = news[indexPath.row].title ?? ""
         cell.feedLabel.text = news[indexPath.row].feed ?? ""
         cell.thumbImage.image = takeImage(url: news[indexPath.row].thumb_img!)

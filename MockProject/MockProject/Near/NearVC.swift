@@ -61,7 +61,6 @@ class NearVC: UIViewController {
     
     // MARK: Button get your location
     @IBAction func myLocationButton(_ sender: Any) {
-        locationManager.startUpdatingLocation()
         centerMapOnLocation(location: CLLocation(latitude: lat, longitude: long))
         getEventNear()
     }

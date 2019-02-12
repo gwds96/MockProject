@@ -6,7 +6,6 @@ class PopularVC: UIViewController {
     
     let urlEvents = URL(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listPopularEvents")!
     
-//    var numberPlaceDelegate: NumberPlaceOfEventDelegate?
     var events = [Events]()
     
     let imageCache = NSCache<AnyObject, AnyObject>()
@@ -35,6 +34,9 @@ class PopularVC: UIViewController {
     }
     
     override func viewDidLoad() {
+        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background popular"))
+        tableView.backgroundView?.alpha = 0.2
+        
         let task = URLSession.shared.dataTask(with: urlEvents) {(result, response, error) in
             guard
                 let data = result,
@@ -64,6 +66,7 @@ extension PopularVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let certifier = "PopularCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: certifier) as! PopularCell
+        cell.backgroundColor = nil
         if let urlString = events[indexPath.row].photo {
             cell.eventImage.image = takeImage(url: urlString)
         } else {

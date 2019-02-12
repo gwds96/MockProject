@@ -2,6 +2,7 @@ import UIKit
 
 class PopularDetailVC: UIViewController {
     
+    @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var eventImage: UIImageView!
     @IBOutlet weak var titleEventLabel: UILabel!
     @IBOutlet weak var detailEventLabel: UILabel!
@@ -32,6 +33,11 @@ class PopularDetailVC: UIViewController {
     var eventWentIdArray: [Int] = []
     
     override func viewDidLoad() {
+        backgroundImage.image = eventImg
+        backgroundImage.alpha = 0.1
+        mainScrollView.backgroundColor = nil
+        constentView.backgroundColor = nil
+        
         cancelButton.setTitleColor(UIColor.red, for: .normal)
         cancelButton.layer.backgroundColor = #colorLiteral(red: 0.8133895397, green: 0.9217470288, blue: 0.9522448182, alpha: 0.3857020548)
         cancelButton.layer.cornerRadius = 5

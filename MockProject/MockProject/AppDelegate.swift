@@ -45,7 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabbar = MainTabBar.instance
         self.window?.rootViewController = tabbar
         self.window?.makeKeyAndVisible()
-        
     }
 
 }

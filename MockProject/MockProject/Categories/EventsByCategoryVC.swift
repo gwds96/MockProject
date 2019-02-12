@@ -12,6 +12,9 @@ class EventsByCategoryVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background popular"))
+        tableView.backgroundView?.alpha = 0.2
+        
         var urlEventsByCategory = URLComponents(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listEventsByCategory")!
         if choose == "Category" {
             urlEventsByCategory = URLComponents(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listEventsByCategory")!
@@ -76,6 +79,7 @@ extension EventsByCategoryVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let certifier = "EventsByCategoryCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: certifier) as! EventsByCategoryCell
+        cell.backgroundColor = nil
         if let urlString = eventByCategory[indexPath.row].photo {
             cell.eventImage.image = takeImage(url: urlString)
         } else {
@@ -103,6 +107,7 @@ extension EventsByCategoryVC: UITableViewDataSource, UITableViewDelegate {
             vc.eventImg = #imageLiteral(resourceName: "Noimage")
         }
         vc.eventTitle = eventByCategory[indexPath.row].name
+        vc.venue_id = String(eventByCategory[indexPath.row].venue.id!)
         present(vc, animated: true, completion: nil)
     }
 }

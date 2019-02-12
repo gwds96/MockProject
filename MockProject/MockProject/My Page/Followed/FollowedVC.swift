@@ -12,9 +12,15 @@ class FollowedVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mapView.isHidden = true
-        closeMapButton.isHidden = true
+        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background local"))
+        tableView.backgroundView?.alpha = 0.2
+        
         loadData()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        self.closeMapButton.isHidden = true
+        self.mapView.frame = CGRect(x: 0, y: self.view.bounds.height, width: self.view.bounds.width, height: self.view.bounds.height)
     }
     
     // MARK: Load data from server for tableView
@@ -46,12 +52,13 @@ class FollowedVC: UIViewController {
     }
     
     @IBAction func closeMapButton(_ sender: Any) {
-        mapView.isHidden = true
-        closeMapButton.isHidden = true
+        UIView.animate(withDuration: 0.6) {
+            self.closeMapButton.isHidden = true
+            self.tableView.alpha = 1
+            self.mapView.center.y += self.view.bounds.height
+        }
     }
 }
-
-
 
 // MARK: TableView for list followed event places ViewController
 extension FollowedVC: UITableViewDataSource, UITableViewDelegate {
@@ -62,6 +69,7 @@ extension FollowedVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let certifier = "FollowedCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: certifier) as! FollowedCell
+        cell.backgroundColor = nil
         cell.nameLabel.text = venue[indexPath.row].name
         cell.localLabel.text = "\(venue[indexPath.row].description ?? ""), \(venue[indexPath.row].geo_area!)"
         cell.phoneLabel.text = venue[indexPath.row].contact_phone
@@ -70,12 +78,16 @@ extension FollowedVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         centerMapOnLocation(location: CLLocation(latitude: Double(self.venue[indexPath.row].geo_lat!)!, longitude: Double(self.venue[indexPath.row].geo_long!)!))
-        mapView.isHidden = false
-        closeMapButton.isHidden = false
+       
+        UIView.animate(withDuration: 0.6) {
+            self.closeMapButton.isHidden = false
+            self.tableView.alpha = 0
+            self.mapView.center.y -= self.view.bounds.height
+        }
+        
         for i in 0..<self.venue.count {
-            let place = Artwork(title: self.venue[i].name ?? "", locationName: self.venue[i].name ?? "", discipline: self.venue[i].description ?? "", coordinate: CLLocationCoordinate2D(latitude: Double(self.venue[i].geo_lat!)!, longitude: Double(self.venue[i].geo_long!)!))
+            let place = Artwork(title: self.venue[i].name ?? "", locationName: self.venue[i].geo_area ?? "", discipline: self.venue[i].description ?? "", coordinate: CLLocationCoordinate2D(latitude: Double(self.venue[i].geo_lat!)!, longitude: Double(self.venue[i].geo_long!)!))
             self.mapView.addAnnotation(place)
         }
     }

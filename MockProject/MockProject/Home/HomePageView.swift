@@ -43,7 +43,7 @@ extension HomePageView: UIPageViewControllerDataSource, UIPageViewControllerDele
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        currentIndex = subViewControllers.index(of: viewController) ?? 0
+        currentIndex = subViewControllers.index(of: viewController)!
         delegateB?.colorOfButton(currentIndex)
         if currentIndex <= 0 {
             return nil
@@ -53,7 +53,7 @@ extension HomePageView: UIPageViewControllerDataSource, UIPageViewControllerDele
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        currentIndex = subViewControllers.index(of: viewController) ?? 0
+        currentIndex = subViewControllers.index(of: viewController)!
         delegateB?.colorOfButton(currentIndex)
         if currentIndex >= subViewControllers.count - 1 {
             return nil

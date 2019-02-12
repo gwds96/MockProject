@@ -11,6 +11,9 @@ class BrowseVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background category"))
+        tableView.backgroundView?.alpha = 0.6
+        
         let task = URLSession.shared.dataTask(with: urlCategory) {(data, response, error) in
             guard
             let data = data,
@@ -39,6 +42,7 @@ extension BrowseVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let certifier = "BrowseCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: certifier) as! BrowseCell
+        cell.backgroundColor = nil
         cell.categoryLabel.text = categories[indexPath.row].name ?? ""
         return cell
     }
