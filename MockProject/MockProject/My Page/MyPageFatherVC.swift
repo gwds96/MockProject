@@ -42,7 +42,7 @@ class MyPageFatherVC: UIViewController {
     
 }
 
-// MARK: Color for Button
+// MARK: - Color for Button
 extension MyPageFatherVC: ColorForButtonDelegate {
     func chooseColor(_ index: Int) {
         let color0: UIColor = (index == 0) ? .blue : .black

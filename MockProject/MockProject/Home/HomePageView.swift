@@ -27,7 +27,7 @@ class HomePageView: UIPageViewController {
 
 extension HomePageView: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
-    // MARK: Move page by buttons
+    // MARK: - Move page by buttons
     func moveToPage(_ index: Int) {
         if index == 1 {
             setViewControllers([subViewControllers[index]], direction: .forward, animated: true, completion: nil)

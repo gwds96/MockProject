@@ -6,7 +6,7 @@ class MainTabBar: UITabBarController {
     
     let keyChain = KeychainSwift()
     
-    // MARK: Tabs for Tabbar
+    // MARK: - Tabs for Tabbar
     var subViewControllers: [String: UIViewController] = {
         return ["homeVC":
             UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeVC") as! HomeVC,

@@ -30,7 +30,7 @@ class RegisterVC: UIViewController {
         enterButton.clipsToBounds = true
     }
     
-    // MARK: animation for Text Field
+    // MARK: - animation for Text Field
     override func viewWillAppear(_ animated: Bool) {
         UIView.animate(withDuration: 0.5) {
             self.userTextField.center.x += self.view.bounds.width
@@ -40,7 +40,7 @@ class RegisterVC: UIViewController {
         }
     }
     
-    // MARK: Check password validation
+    // MARK: - Check password validation
     func checkPasswordValidation(_ password: String) -> Bool {
         if password.count < 6 || password.count > 16 {
             return true
@@ -53,7 +53,7 @@ class RegisterVC: UIViewController {
         return true
     }
     
-    // MARK: Post Request Register
+    // MARK: - Post Request Register
     func postRequestRegister() {
         let params = ["name": "\(String(userTextField.text!))", "email": "\(String(mailTextField.text!))", "password": "\(String(passTextField.text!))"]
         var request = URLRequest(url: urlRegister)
@@ -61,30 +61,19 @@ class RegisterVC: UIViewController {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         guard let httpBody = try? JSONSerialization.data(withJSONObject: params, options: []) else { return }
         request.httpBody = httpBody
-        let session = URLSession.shared
-        session.dataTask(with: request) { (data, response, error) in
-            guard let data = data,
-                error == nil else { return }
-            do {
-                let obj = try JSONDecoder().decode(Account.self, from: data)
-                DispatchQueue.main.async {
-                    if obj.status == 0 {
-                        self.spinActivity.stopAnimating()
-                        self.noticeLbl.text = "Register is failed, please try again!!"
-                    } else {
-                        self.spinActivity.stopAnimating()
-                        self.noticeLbl.text = ""
-                        self.sendBackInfoDelegate?.emailAndPass(email: self.mailTextField.text!, pass: self.passTextField.text!)
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                }
-            }
-            catch {
-                DispatchQueue.main.async {
+        requestData(urlRequest: request) { (obj: Account) in
+            DispatchQueue.main.async {
+                if obj.status == 0 {
+                    self.spinActivity.stopAnimating()
                     self.noticeLbl.text = "Register is failed, please try again!!"
+                } else {
+                    self.spinActivity.stopAnimating()
+                    self.noticeLbl.text = ""
+                    self.sendBackInfoDelegate?.emailAndPass(email: self.mailTextField.text!, pass: self.passTextField.text!)
+                    self.dismiss(animated: true, completion: nil)
                 }
             }
-            }.resume()
+        }
     }
     
     @IBAction func backButton(_ sender: Any) {

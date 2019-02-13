@@ -8,54 +8,17 @@ class PopularVC: UIViewController {
     
     var events = [Events]()
     
-    let imageCache = NSCache<AnyObject, AnyObject>()
-    
-    // MARK: func cache image
-    func takeImage(url: String) -> UIImage {
-        var image: UIImage? = nil
-        
-        if let imageFromCache = imageCache.object(forKey: url as AnyObject) as? UIImage {
-            image = imageFromCache
-            return image!
-        }
-        
-        if let urlImage = URL(string: url) {
-            do {
-                let dataImage = try Data(contentsOf: urlImage)
-                let img = UIImage(data: dataImage)!
-                imageCache.setObject(img, forKey: url as AnyObject)
-                image = img
-                return image!
-            } catch let error {
-                print(error.localizedDescription)
-            }
-        }
-        return UIImage.init(named: "Noimage")!
-    }
-    
     override func viewDidLoad() {
         tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background popular"))
         tableView.backgroundView?.alpha = 0.2
-        
-        let task = URLSession.shared.dataTask(with: urlEvents) {(result, response, error) in
-            guard
-                let data = result,
-                error == nil else {
-                    return
-            }
-            do {
-                guard let obj = try? JSONDecoder().decode(MainEvent.self, from: data) else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    self.events = obj.response.events ?? []
-                    self.tableView.reloadData()
-                }
+        requestData(urlRequest: URLRequest(url: urlEvents)) { (obj: MainEvent) in
+            DispatchQueue.main.async {
+                self.events = obj.response.events ?? []
+                self.tableView.reloadData()
             }
         }
-        task.resume()
     }
-
+    
 }
 
 extension PopularVC: UITableViewDelegate, UITableViewDataSource {
@@ -68,7 +31,7 @@ extension PopularVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: certifier) as! PopularCell
         cell.backgroundColor = nil
         if let urlString = events[indexPath.row].photo {
-            cell.eventImage.image = takeImage(url: urlString)
+            cell.eventImage.cacheImage(urlImage: urlString)
         } else {
             cell.eventImage.image = #imageLiteral(resourceName: "Noimage")
         }
@@ -88,9 +51,7 @@ extension PopularVC: UITableViewDelegate, UITableViewDataSource {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: certifier)
             as! PopularDetailVC
         if let urlString = events[indexPath.row].photo {
-            vc.eventImg = takeImage(url: urlString)
-        } else {
-            vc.eventImg = #imageLiteral(resourceName: "Noimage")
+            vc.eventUrlImgString = urlString
         }
         vc.eventTitle = events[indexPath.row].name
         vc.eventId = events[indexPath.row].id

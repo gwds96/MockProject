@@ -6,7 +6,7 @@ protocol ColorForButtonDelegate: class {
 
 class MyPagePageView: UIPageViewController {
     
-    // MARK: ViewController will be present
+    // MARK: - ViewController will be present
     let subViewController: [UIViewController] = {
         return [UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AccountVC") as! AccountVC,
                 UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WentVC") as! WentVC,
@@ -27,7 +27,7 @@ class MyPagePageView: UIPageViewController {
     
 }
 
-// MARK: Set up for PageViewController
+// MARK: - Set up for PageViewController
 extension MyPagePageView: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
         return subViewController.count
@@ -58,7 +58,7 @@ extension MyPagePageView: UIPageViewControllerDataSource, UIPageViewControllerDe
         }
     }
     
-    // MARK: Move Page by Button
+    // MARK: - Move Page by Button
     func moveToPage(_ index: Int) {
         if index < currentIndex {
             currentIndex = index

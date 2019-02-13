@@ -3,7 +3,6 @@ import UIKit
 class BrowseVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
     
     let urlCategory = URL(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listCategories")!
     
@@ -13,24 +12,18 @@ class BrowseVC: UIViewController {
         super.viewDidLoad()
         tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background category"))
         tableView.backgroundView?.alpha = 0.6
-        
-        let task = URLSession.shared.dataTask(with: urlCategory) {(data, response, error) in
-            guard
-            let data = data,
-                error == nil else {
-                    return
-            }
-            do {
-                guard let obj = try? JSONDecoder().decode(MainCategory.self, from: data) else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    self.categories = obj.response.categories
-                    self.tableView.reloadData()
-                }
+        requestData(urlRequest: URLRequest(url: urlCategory)) { (obj: MainCategory) in
+            DispatchQueue.main.async {
+                self.categories = obj.response.categories
+                self.tableView.reloadData()
             }
         }
-        task.resume()
+    }
+    
+    @IBAction func searchButton(_ sender: Any) {
+        let certifier = "SearchVC"
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: certifier) as! SearchVC
+        present(vc, animated: true, completion: nil)
     }
 }
 
@@ -55,22 +48,6 @@ extension BrowseVC: UITableViewDataSource, UITableViewDelegate {
         let certifier = "EventsByCategoryVC"
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: certifier) as! EventsByCategoryVC
         vc.categoryId = self.categories[indexPath.row].id
-        vc.choose = "Category"
         present(vc, animated: true, completion: nil)
-    }
-}
-
-// MARK: Send data to search for POST REQUEST
-extension BrowseVC: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        let certifier = "EventsByCategoryVC"
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: certifier) as! EventsByCategoryVC
-        vc.typeOfFinding = searchBar.text ?? ""
-        vc.choose = "Search"
-        present(vc, animated: true, completion: nil)
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.searchBar.endEditing(true)
     }
 }

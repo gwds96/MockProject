@@ -27,6 +27,9 @@
 		F721B99F21FAF705005B1C26 /* EventsByCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F721B99E21FAF705005B1C26 /* EventsByCategoryVC.swift */; };
 		F721B9A121FAF753005B1C26 /* EventsByCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F721B9A021FAF753005B1C26 /* EventsByCategoryCell.swift */; };
 		F72E29D022115E54009A4ACA /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72E29CF22115E54009A4ACA /* Artwork.swift */; };
+		F73268472213D7620077E7C9 /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73268462213D7620077E7C9 /* RequestData.swift */; };
+		F732684C221429BD0077E7C9 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F732684B221429BD0077E7C9 /* SearchVC.swift */; };
+		F732684F22142A1C0077E7C9 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F732684E22142A1C0077E7C9 /* SearchCell.swift */; };
 		F749DEF321FEDBA200EC5EDE /* NearCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F749DEF221FEDBA200EC5EDE /* NearCollectionCell.swift */; };
 		F749DEF521FEE0BE00EC5EDE /* ResetPassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F749DEF421FEE0BE00EC5EDE /* ResetPassVC.swift */; };
 		F789E6E421F7216600E147F1 /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F789E6E321F7216600E147F1 /* AccountVC.swift */; };
@@ -69,6 +72,9 @@
 		F721B99E21FAF705005B1C26 /* EventsByCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsByCategoryVC.swift; sourceTree = "<group>"; };
 		F721B9A021FAF753005B1C26 /* EventsByCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsByCategoryCell.swift; sourceTree = "<group>"; };
 		F72E29CF22115E54009A4ACA /* Artwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
+		F73268462213D7620077E7C9 /* RequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestData.swift; sourceTree = "<group>"; };
+		F732684B221429BD0077E7C9 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		F732684E22142A1C0077E7C9 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		F749DEF221FEDBA200EC5EDE /* NearCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearCollectionCell.swift; sourceTree = "<group>"; };
 		F749DEF421FEE0BE00EC5EDE /* ResetPassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPassVC.swift; sourceTree = "<group>"; };
 		F789E6E321F7216600E147F1 /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
@@ -122,6 +128,7 @@
 				F710D80921F56EE30046FEB6 /* AppDelegate.swift */,
 				F710D82321F582750046FEB6 /* ExtensionCode.swift */,
 				F702BC3221F9542600685927 /* MainTabBar.swift */,
+				F73268462213D7620077E7C9 /* RequestData.swift */,
 				F710D83321F5D5D30046FEB6 /* Home */,
 				F749DEF621FEE6A400EC5EDE /* Near */,
 				F710D83421F5D5DF0046FEB6 /* Categories */,
@@ -171,11 +178,38 @@
 			children = (
 				F710D82F21F5C9560046FEB6 /* BrowseVC.swift */,
 				F710D83121F5C9770046FEB6 /* BrowseCell.swift */,
-				F721B99E21FAF705005B1C26 /* EventsByCategoryVC.swift */,
-				F721B9A021FAF753005B1C26 /* EventsByCategoryCell.swift */,
+				F732684D221429FE0077E7C9 /* EventByCategory */,
+				F732685022142A250077E7C9 /* EventBySearch */,
 				F7DFC56E21F81DF100FDA62C /* CategoriesStruct.swift */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		F73268482213FBAD0077E7C9 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				F789E6E321F7216600E147F1 /* AccountVC.swift */,
+				F7DFC57021F81EAF00FDA62C /* AccountStruct.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		F732684D221429FE0077E7C9 /* EventByCategory */ = {
+			isa = PBXGroup;
+			children = (
+				F721B99E21FAF705005B1C26 /* EventsByCategoryVC.swift */,
+				F721B9A021FAF753005B1C26 /* EventsByCategoryCell.swift */,
+			);
+			path = EventByCategory;
+			sourceTree = "<group>";
+		};
+		F732685022142A250077E7C9 /* EventBySearch */ = {
+			isa = PBXGroup;
+			children = (
+				F732684B221429BD0077E7C9 /* SearchVC.swift */,
+				F732684E22142A1C0077E7C9 /* SearchCell.swift */,
+			);
+			path = EventBySearch;
 			sourceTree = "<group>";
 		};
 		F749DEF621FEE6A400EC5EDE /* Near */ = {
@@ -191,14 +225,13 @@
 		F7DFC57221F81ECF00FDA62C /* My Page */ = {
 			isa = PBXGroup;
 			children = (
-				F7E322A821FFFB4700394B3F /* Login */,
 				F7E322A621FFFB2500394B3F /* MyPageFatherVC.swift */,
 				F7E322A921FFFB7D00394B3F /* MyPagePageView.swift */,
+				F7E322A821FFFB4700394B3F /* Login */,
+				F73268482213FBAD0077E7C9 /* Account */,
 				F7E322B722005A1100394B3F /* Went */,
 				F7E322B822005A1A00394B3F /* WillGo */,
 				F7E322B922005A2500394B3F /* Followed */,
-				F789E6E321F7216600E147F1 /* AccountVC.swift */,
-				F7DFC57021F81EAF00FDA62C /* AccountStruct.swift */,
 			);
 			path = "My Page";
 			sourceTree = "<group>";
@@ -319,10 +352,12 @@
 				F7D4E4B421F6D913008293E4 /* LogInVC.swift in Sources */,
 				F7E322AE21FFFCDE00394B3F /* WillGoVC.swift in Sources */,
 				F710D81E21F57FFF0046FEB6 /* NewsVC.swift in Sources */,
+				F732684F22142A1C0077E7C9 /* SearchCell.swift in Sources */,
 				F72E29D022115E54009A4ACA /* Artwork.swift in Sources */,
 				F749DEF521FEE0BE00EC5EDE /* ResetPassVC.swift in Sources */,
 				F721B99F21FAF705005B1C26 /* EventsByCategoryVC.swift in Sources */,
 				F7E322B6220059F900394B3F /* WentCell.swift in Sources */,
+				F732684C221429BD0077E7C9 /* SearchVC.swift in Sources */,
 				F7DFC56B21F81D7F00FDA62C /* NewsStruct.swift in Sources */,
 				F710D82E21F58CD20046FEB6 /* HomePageView.swift in Sources */,
 				F7E322A721FFFB2500394B3F /* MyPageFatherVC.swift in Sources */,
@@ -336,6 +371,7 @@
 				F710D82021F580B40046FEB6 /* NewsCell.swift in Sources */,
 				F702BC3721F9ADF700685927 /* KeyChainSwift.swift in Sources */,
 				F7E322AC21FFFCC800394B3F /* WentVC.swift in Sources */,
+				F73268472213D7620077E7C9 /* RequestData.swift in Sources */,
 				F710D80A21F56EE30046FEB6 /* AppDelegate.swift in Sources */,
 				F710D83021F5C9560046FEB6 /* BrowseVC.swift in Sources */,
 				F7E322B4220059E400394B3F /* WillGoCell.swift in Sources */,

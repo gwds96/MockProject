@@ -23,27 +23,16 @@ class FollowedVC: UIViewController {
         self.mapView.frame = CGRect(x: 0, y: self.view.bounds.height, width: self.view.bounds.width, height: self.view.bounds.height)
     }
     
-    // MARK: Load data from server for tableView
+    // MARK: - Load data from server for tableView
     func loadData() {
         urlFollowed.queryItems = [URLQueryItem(name: "token", value: "\(keyChain.get("token") ?? "")")]
         let request = URLRequest(url: urlFollowed.url!)
-        let task = URLSession.shared.dataTask(with: request) {(result, response, error) in
-            guard
-                let data = result,
-                error == nil else {
-                    return
-            }
-            do {
-                guard let obj = try? JSONDecoder().decode(MainEvent.self, from: data) else {
-                    return
-                }
-                self.venue = obj.response.venues ?? []
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+        requestData(urlRequest: request) { (obj: MainEvent) in
+            self.venue = obj.response.venues ?? []
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
         }
-        task.resume()
     }
     
     func centerMapOnLocation(location: CLLocation) {
@@ -60,7 +49,7 @@ class FollowedVC: UIViewController {
     }
 }
 
-// MARK: TableView for list followed event places ViewController
+// MARK: - TableView for list followed event places ViewController
 extension FollowedVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return venue.count

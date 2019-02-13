@@ -24,19 +24,19 @@ class HomeVC: UIViewController {
         }
     }
     
-    // MARK: Click news
+    // MARK: - Click news
     @IBAction func newsButton(_ sender: UIButton) {
         page.moveToPage(0)
     }
     
-    // MARK: Click popular
+    // MARK: - Click popular
     @IBAction func popularButton(_ sender: UIButton) {
         page.moveToPage(1)
         
     }
 }
 
-// MARK: Set color for buttons use Delegate
+// MARK: - Set color for buttons use Delegate
 extension HomeVC: ButtonDelegate {
     func colorOfButton(_ number: Int) {
         let color0: UIColor = (number == 0) ? .blue : .black
