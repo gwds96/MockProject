@@ -1,17 +1,21 @@
 import UIKit
 
-class HomeVC: UIViewController {
+class HomeVC: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var newsButton: UIButton!
     @IBOutlet weak var popularButton: UIButton!
     @IBOutlet weak var container: UIView!
     var page: HomePageView!
     
+    var colorLabel = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        newsButton.setTitleColor(UIColor.blue, for: .normal)
-        newsButton.backgroundColor = #colorLiteral(red: 0.7305393777, green: 1, blue: 0.9652253821, alpha: 0.4)
-        popularButton.setTitleColor(UIColor.black, for: .normal)
+        colorLabel.frame = CGRect(x: 0, y: newsButton.bounds.height + 20, width: view.bounds.width/2, height: 5)
+        colorLabel.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        view.addSubview(colorLabel)
+        newsButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
+        popularButton.setTitleColor(UIColor.gray, for: .normal)
         
     }
     
@@ -34,19 +38,23 @@ class HomeVC: UIViewController {
         page.moveToPage(1)
         
     }
+    
 }
 
 // MARK: - Set color for buttons use Delegate
 extension HomeVC: ButtonDelegate {
     func colorOfButton(_ number: Int) {
-        let color0: UIColor = (number == 0) ? .blue : .black
-        let backgroundColor0: UIColor = (number == 0) ? #colorLiteral(red: 0.7305393777, green: 1, blue: 0.9652253821, alpha: 0.4) : .white
-        newsButton.setTitleColor(color0, for: .normal)
-        newsButton.backgroundColor = backgroundColor0
-        let color1: UIColor = (number == 1) ? .blue : .black
-        let backgroundColor1: UIColor = (number == 1) ? #colorLiteral(red: 1, green: 0.8572274131, blue: 0.9413912327, alpha: 0.4) : .white
-        popularButton.setTitleColor(color1, for: .normal)
-        popularButton.backgroundColor = backgroundColor1
+        let color0: UIColor = (number == 0) ? #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1) : .gray
+        let color1: UIColor = (number == 1) ? #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1) : .gray
+        UIView.animate(withDuration: 0.3) {
+        self.newsButton.setTitleColor(color0, for: .normal)
+        self.popularButton.setTitleColor(color1, for: .normal)
+            if number == 0 {
+                self.colorLabel.center.x = self.newsButton.bounds.width/2
+            } else {
+                self.colorLabel.center.x = self.newsButton.bounds.width * 1.5
+            }
+        }
     }
     
 }

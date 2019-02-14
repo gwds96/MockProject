@@ -9,8 +9,8 @@ class PopularVC: UIViewController {
     var events = [Events]()
     
     override func viewDidLoad() {
-        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background popular"))
-        tableView.backgroundView?.alpha = 0.2
+        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background news"))
+        tableView.backgroundView?.alpha = 0.3
         requestData(urlRequest: URLRequest(url: urlEvents)) { (obj: MainEvent) in
             DispatchQueue.main.async {
                 self.events = obj.response.events ?? []

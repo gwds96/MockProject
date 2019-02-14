@@ -2,6 +2,7 @@ import UIKit
 
 class WentVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var spinActivity: UIActivityIndicatorView!
     
     let keyChain = KeychainSwift()
     var urlWent = URLComponents(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listMyEvents")!
@@ -11,6 +12,7 @@ class WentVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        spinActivity.startAnimating()
         tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background went going"))
         tableView.backgroundView?.alpha = 0.2
         
@@ -27,6 +29,7 @@ class WentVC: UIViewController {
         requestData(urlRequest: request) { (obj: MainEvent) in
             self.event = obj.response.events ?? []
             DispatchQueue.main.async {
+                self.spinActivity.stopAnimating()
                 self.tableView.reloadData()
             }
         }

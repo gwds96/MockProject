@@ -3,6 +3,7 @@ import UIKit
 class BrowseVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var navigationBar: UINavigationBar!
     
     let urlCategory = URL(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listCategories")!
     
@@ -10,8 +11,9 @@ class BrowseVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background category"))
-        tableView.backgroundView?.alpha = 0.6
+        navigationBar.setBackgroundImage(#imageLiteral(resourceName: "background news"), for: .default)
+        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background news"))
+        tableView.backgroundView?.alpha = 0.3
         requestData(urlRequest: URLRequest(url: urlCategory)) { (obj: MainCategory) in
             DispatchQueue.main.async {
                 self.categories = obj.response.categories
@@ -23,8 +25,10 @@ class BrowseVC: UIViewController {
     @IBAction func searchButton(_ sender: Any) {
         let certifier = "SearchVC"
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: certifier) as! SearchVC
+        vc.modalTransitionStyle = .crossDissolve
         present(vc, animated: true, completion: nil)
     }
+    
 }
 
 extension BrowseVC: UITableViewDataSource, UITableViewDelegate {

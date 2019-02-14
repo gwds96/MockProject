@@ -4,30 +4,34 @@ class SearchVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var spinActivity: UIActivityIndicatorView!
+    @IBOutlet weak var navigationBar: UINavigationBar!
     
     var typeOfFinding = ""
     var eventBySearch = [Events]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background popular"))
-        tableView.backgroundView?.alpha = 0.2
+        navigationBar.setBackgroundImage(#imageLiteral(resourceName: "background news"), for: .default)
+        searchBar.becomeFirstResponder()
+        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background news"))
+        tableView.backgroundView?.alpha = 0.3
     }
     
     func loadData() {
         var urlEventsBySearch = URLComponents(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/search")!
-        urlEventsBySearch.queryItems = [URLQueryItem(name: "keyword", value: "\(typeOfFinding)")]
-        let request = URLRequest(url: urlEventsBySearch.url!)
-        requestData(urlRequest: request) { (obj: MainEvent) in
-            self.eventBySearch = obj.response.events ?? []
-            DispatchQueue.main.async {
-                self.spinActivity.stopAnimating()
-                self.tableView.reloadData()
+            urlEventsBySearch.queryItems = [URLQueryItem(name: "keyword", value: "\(typeOfFinding)")]
+            let request = URLRequest(url: urlEventsBySearch.url!)
+            requestData(urlRequest: request) { (obj: MainEvent) in
+                self.eventBySearch = obj.response.events ?? []
+                DispatchQueue.main.async {
+                    self.spinActivity.stopAnimating()
+                    self.tableView.reloadData()
+                }
             }
-        }
     }
     
     @IBAction func backButton(_ sender: Any) {
+        searchBar.endEditing(true)
         dismiss(animated: true, completion: nil)
     }
 }
@@ -78,9 +82,12 @@ extension SearchVC: UITableViewDataSource, UITableViewDelegate {
 // MARK: - Send data to search for POST REQUEST
 extension SearchVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        spinActivity.startAnimating()
         self.typeOfFinding = searchBar.text ?? ""
-        loadData()
+        if self.typeOfFinding != "" {
+            spinActivity.startAnimating()
+            searchBar.endEditing(true)
+            loadData()
+        }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -90,13 +97,16 @@ extension SearchVC: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         UIView.animate(withDuration: 0.5) {
             searchBar.showsCancelButton = true
+            self.tableView.alpha = 0.2
         }
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         UIView.animate(withDuration: 0.5) {
             searchBar.showsCancelButton = false
+            self.tableView.alpha = 1
         }
     }
+    
 }
 

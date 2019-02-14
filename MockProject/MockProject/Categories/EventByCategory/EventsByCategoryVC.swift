@@ -3,14 +3,16 @@ import UIKit
 class EventsByCategoryVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var spinActivity: UIActivityIndicatorView!
     
     var categoryId: Int?
     var eventByCategory = [Events]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background popular"))
-        tableView.backgroundView?.alpha = 0.2
+        spinActivity.startAnimating()
+        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background news"))
+        tableView.backgroundView?.alpha = 0.3
         
         var urlEventsByCategory = URLComponents(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listEventsByCategory")!
             urlEventsByCategory = URLComponents(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listEventsByCategory")!
@@ -19,6 +21,7 @@ class EventsByCategoryVC: UIViewController {
         requestData(urlRequest: request) { (obj: MainEvent) in
             self.eventByCategory = obj.response.events ?? []
             DispatchQueue.main.async {
+                self.spinActivity.stopAnimating()
                 self.tableView.reloadData()
             }
         }

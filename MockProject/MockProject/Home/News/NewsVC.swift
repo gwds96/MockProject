@@ -10,7 +10,7 @@ class NewsVC: UIViewController {
     
     override func viewDidLoad() {
         tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background news"))
-        tableView.backgroundView?.alpha = 0.2
+        tableView.backgroundView?.alpha = 0.3
         requestData(urlRequest: URLRequest(url: urlString)) { (obj: MainNews) in
             DispatchQueue.main.async {
                 self.news = obj.response.news

@@ -5,6 +5,7 @@ class FollowedVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var closeMapButton: UIButton!
+    @IBOutlet weak var spinActivity: UIActivityIndicatorView!
     
     let keyChain = KeychainSwift()
     var urlFollowed = URLComponents(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listVenueFollowed")!
@@ -12,6 +13,7 @@ class FollowedVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        spinActivity.startAnimating()
         tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background local"))
         tableView.backgroundView?.alpha = 0.2
         
@@ -30,6 +32,7 @@ class FollowedVC: UIViewController {
         requestData(urlRequest: request) { (obj: MainEvent) in
             self.venue = obj.response.venues ?? []
             DispatchQueue.main.async {
+                self.spinActivity.stopAnimating()
                 self.tableView.reloadData()
             }
         }
