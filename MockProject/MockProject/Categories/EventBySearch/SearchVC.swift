@@ -41,6 +41,10 @@ extension SearchVC: UITableViewDataSource, UITableViewDelegate {
         return eventBySearch.count
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let certifier = "SearchCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: certifier) as! SearchCell

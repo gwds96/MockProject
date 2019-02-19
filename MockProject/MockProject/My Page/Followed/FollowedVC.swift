@@ -21,8 +21,8 @@ class FollowedVC: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        self.closeMapButton.isHidden = true
-        self.mapView.frame = CGRect(x: 0, y: self.view.bounds.height, width: self.view.bounds.width, height: self.view.bounds.height)
+        closeMapButton.isHidden = true
+        mapView.frame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: view.bounds.height)
     }
     
     // MARK: - Load data from server for tableView
@@ -56,6 +56,10 @@ class FollowedVC: UIViewController {
 extension FollowedVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return venue.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

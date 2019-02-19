@@ -1,19 +1,29 @@
 import UIKit
 import Foundation
 
+protocol PresentDelegate: class {
+    func present(_ events: Events)
+}
+
 class PopularVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var spinActivity: UIActivityIndicatorView!
     
     let urlEvents = URL(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listPopularEvents")!
+    
+    weak var presentDelegate: PresentDelegate?
     
     var events = [Events]()
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        spinActivity.startAnimating()
         tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background news"))
         tableView.backgroundView?.alpha = 0.3
         requestData(urlRequest: URLRequest(url: urlEvents)) { (obj: MainEvent) in
+            self.events = obj.response.events ?? []
             DispatchQueue.main.async {
-                self.events = obj.response.events ?? []
+                self.spinActivity.stopAnimating()
                 self.tableView.reloadData()
             }
         }
@@ -47,15 +57,7 @@ extension PopularVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let certifier = "PopularDetailVC"
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: certifier)
-            as! PopularDetailVC
-        if let urlString = events[indexPath.row].photo {
-            vc.eventUrlImgString = urlString
-        }
-        vc.eventTitle = events[indexPath.row].name
-        vc.eventId = events[indexPath.row].id
-        vc.venue_id = String(events[indexPath.row].venue.id!)
-        self.present(vc, animated: true, completion: nil)
+        presentDelegate?.present(events[indexPath.row])
     }
+    
 }

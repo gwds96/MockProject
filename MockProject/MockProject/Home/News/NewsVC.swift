@@ -3,17 +3,25 @@ import Foundation
 
 class NewsVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var spinActivity: UIActivityIndicatorView!
     
-    let urlString = URL(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listNews")!
+    var urlString = URL(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listNews")!
     
     var news = [News]()
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        loadData()
+    }
+    
+    func loadData() {
+        spinActivity.startAnimating()
         tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background news"))
         tableView.backgroundView?.alpha = 0.3
         requestData(urlRequest: URLRequest(url: urlString)) { (obj: MainNews) in
+            self.news = obj.response.news
             DispatchQueue.main.async {
-                self.news = obj.response.news
+                self.spinActivity.stopAnimating()
                 self.tableView.reloadData()
             }
         }
@@ -53,4 +61,5 @@ class NewsVC: UIViewController {
         func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
             return 400
         }
+        
 }

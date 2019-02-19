@@ -15,10 +15,14 @@ class PopularDetailVC: UIViewController {
     @IBOutlet weak var contactEventLabel: UILabel!
     @IBOutlet weak var addressEventLabel: UILabel!
     
+    @IBOutlet weak var viewDetailButton: UIButton!
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var willGoButton: UIButton!
     @IBOutlet weak var haveWentButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var spinActivity: UIActivityIndicatorView!
+    
+    var minimize: Bool = true
     
     let keyChain = KeychainSwift()
     
@@ -33,6 +37,7 @@ class PopularDetailVC: UIViewController {
     var eventWentIdArray: [Int] = []
     
     override func viewDidLoad() {
+        spinActivity.startAnimating()
         backgroundImage.cacheImage(urlImage: eventUrlImgString ?? "")
         backgroundImage.alpha = 0.1
         mainScrollView.backgroundColor = nil
@@ -48,9 +53,11 @@ class PopularDetailVC: UIViewController {
         haveWentButton.layer.backgroundColor = #colorLiteral(red: 0.8133895397, green: 0.9217470288, blue: 0.9522448182, alpha: 0.3857020548)
         haveWentButton.layer.cornerRadius = 5
         loadData()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        spinActivity.startAnimating()
         loadData()
     }
     
@@ -114,6 +121,7 @@ class PopularDetailVC: UIViewController {
                 self.locationEventLabel.text = obj.response.events.venue.name
                 self.contactEventLabel.text = obj.response.events.venue.contact_phone
                 self.addressEventLabel.text = obj.response.events.venue.contact_address
+                self.spinActivity.stopAnimating()
                 
                 // MARK: - Set status for the buttons
                 if self.venueIdArray.contains(obj.response.events.venue.id!) {
@@ -209,6 +217,18 @@ class PopularDetailVC: UIViewController {
         }
     }
     
+    // MARK: - Do expand or collapse detail
+    @IBAction func viewDetail(_ sender: Any) {
+        minimize.toggle()
+        if minimize {
+            viewDetailButton.setImage(#imageLiteral(resourceName: "expand"), for: .normal)
+            detailEventLabel.setContentCompressionResistancePriority(.init(749), for: .vertical)
+        } else {
+            viewDetailButton.setImage(#imageLiteral(resourceName: "collapse"), for: .normal)
+            detailEventLabel.setContentCompressionResistancePriority(.init(751), for: .vertical)
+        }
+    }
+    
     // MARK: - Do back to list events
     @IBAction func backButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -237,4 +257,5 @@ class PopularDetailVC: UIViewController {
         status = 0
         doUpdateEvent()
     }
+    
 }

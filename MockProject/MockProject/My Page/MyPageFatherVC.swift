@@ -1,77 +1,135 @@
 import UIKit
 
 class MyPageFatherVC: UIViewController {
+    
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var accountButton: UIButton!
     @IBOutlet weak var wentButton: UIButton!
     @IBOutlet weak var willGoButton: UIButton!
     @IBOutlet weak var followedButton: UIButton!
 
     var colorLabel = UILabel()
-    var conformClass: MyPagePageView?
+    
+    var accountSubview = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AccountVC") as! AccountVC
+    var wentSubview = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WentVC") as! WentVC
+    var willGoingSubview = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WillGoVC") as! WillGoVC
+    var followedSubview = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FollowedVC") as! FollowedVC
+    
+    // MARK: - ViewController will be present
+    lazy var subViews: [UIViewController] = [accountSubview, wentSubview, willGoingSubview, followedSubview]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        wentSubview.presentDelegate = self
+        willGoingSubview.presentDelegate = self
+        
+        setupViewForScrollView([subViews[0].view, subViews[1].view, subViews[2].view, subViews[3].view])
+        
         colorLabel.frame = CGRect(x: 0, y: accountButton.bounds.height + 20, width: view.bounds.width/4, height: 5)
         colorLabel.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         view.addSubview(colorLabel)
-        accountButton.tintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        accountButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
+        wentButton.setTitleColor(UIColor.gray, for: .normal)
+        willGoButton.setTitleColor(UIColor.gray, for: .normal)
+        followedButton.setTitleColor(UIColor.gray, for: .normal)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        wentSubview.loadData()
+        willGoingSubview.loadData()
+        followedSubview.loadData()
         
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let cellIdentifier = "MyPagePageView"
-        if let vc = segue.destination as? MyPagePageView,
-            segue.identifier == cellIdentifier {
-            self.conformClass = vc
-            vc.colorDelegate = self
+    func setupViewForScrollView(_ subViews: [UIView]) {
+        self.scrollView.contentSize = CGSize(width: self.view.bounds.width * CGFloat(subViews.count), height: self.scrollView.frame.height)
+        for i in 0..<subViews.count {
+            subViews[i].frame = CGRect(x: view.frame.width * CGFloat(i), y: 0, width: self.view.frame.width, height: self.scrollView.frame.height)
+            self.scrollView.addSubview(subViews[i])
         }
     }
     
     @IBAction func accountButton(_ sender: Any) {
-        conformClass?.moveToPage(0)
+        UIView.animate(withDuration: 0.1) {
+            self.accountButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
+            self.wentButton.setTitleColor(UIColor.gray, for: .normal)
+            self.willGoButton.setTitleColor(UIColor.gray, for: .normal)
+            self.followedButton.setTitleColor(UIColor.gray, for: .normal)
+            self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.scrollView.frame.height), animated: true)
+        }
     }
     
     @IBAction func wentButton(_ sender: Any) {
-        conformClass?.moveToPage(1)
+        UIView.animate(withDuration: 0.1) {
+            self.accountButton.setTitleColor(UIColor.gray, for: .normal)
+            self.wentButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
+            self.willGoButton.setTitleColor(UIColor.gray, for: .normal)
+            self.followedButton.setTitleColor(UIColor.gray, for: .normal)
+            self.scrollView.scrollRectToVisible(CGRect(x: self.view.bounds.width, y: 0, width: self.view.frame.width, height: self.scrollView.frame.height), animated: true)
+        }
     }
     
     @IBAction func willGoButton(_ sender: Any) {
-        conformClass?.moveToPage(2)
+        UIView.animate(withDuration: 0.1) {
+            self.accountButton.setTitleColor(UIColor.gray, for: .normal)
+            self.wentButton.setTitleColor(UIColor.gray, for: .normal)
+            self.willGoButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
+            self.followedButton.setTitleColor(UIColor.gray, for: .normal)
+            self.scrollView.scrollRectToVisible(CGRect(x: self.view.bounds.width * 2, y: 0, width: self.view.frame.width, height: self.scrollView.frame.height), animated: true)
+        }
     }
     
     @IBAction func followedButton(_ sender: Any) {
-        conformClass?.moveToPage(3)
+        UIView.animate(withDuration: 0.1) {
+            self.accountButton.setTitleColor(UIColor.gray, for: .normal)
+            self.wentButton.setTitleColor(UIColor.gray, for: .normal)
+            self.willGoButton.setTitleColor(UIColor.gray, for: .normal)
+            self.followedButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
+            self.scrollView.scrollRectToVisible(CGRect(x: self.view.bounds.width * 3, y: 0, width: self.view.frame.width, height: self.scrollView.frame.height), animated: true)
+        }
     }
     
 }
 
 // MARK: - Color for Button
-extension MyPageFatherVC: ColorForButtonDelegate {
-    func chooseColor(_ index: Int) {
-        let color0: UIColor = (index == 0) ? #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1) : .gray
-        
-        let color1: UIColor = (index == 1) ? #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1) : .gray
-        
-        let color2: UIColor = (index == 2) ? #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1) : .gray
-        
-        let color3: UIColor = (index == 3) ? #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1) : .gray
-        
-        UIView.animate(withDuration: 0.3) {
-            self.accountButton.setTitleColor(color0, for: .normal)
-            self.wentButton.setTitleColor(color1, for: .normal)
-            self.willGoButton.setTitleColor(color2, for: .normal)
-            self.followedButton.setTitleColor(color3, for: .normal)
-            switch index {
-            case 0:
-                self.colorLabel.center.x = self.accountButton.bounds.width/2
-            case 1:
-                self.colorLabel.center.x = self.accountButton.bounds.width * 1.5
-            case 2:
-                self.colorLabel.center.x = self.accountButton.bounds.width * 2.5
-            default:
-                self.colorLabel.center.x = self.accountButton.bounds.width * 3.5
-            }
+extension MyPageFatherVC: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        colorLabel.frame = CGRect(x: scrollView.contentOffset.x/4, y: accountButton.bounds.height + 20, width: view.bounds.width/4, height: 5)
+        if scrollView.contentOffset.x < view.bounds.width/2 {
+            self.accountButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
+            self.wentButton.setTitleColor(UIColor.gray, for: .normal)
+            self.willGoButton.setTitleColor(UIColor.gray, for: .normal)
+            self.followedButton.setTitleColor(UIColor.gray, for: .normal)
+        } else if scrollView.contentOffset.x >= view.bounds.width/2
+        && scrollView.contentOffset.x < view.bounds.width * 1.5 {
+            self.accountButton.setTitleColor(UIColor.gray, for: .normal)
+            self.wentButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
+            self.willGoButton.setTitleColor(UIColor.gray, for: .normal)
+            self.followedButton.setTitleColor(UIColor.gray, for: .normal)
+        } else if scrollView.contentOffset.x >= view.bounds.width * 1.5
+            && scrollView.contentOffset.x < view.bounds.width * 2.5 {
+            self.accountButton.setTitleColor(UIColor.gray, for: .normal)
+            self.wentButton.setTitleColor(UIColor.gray, for: .normal)
+            self.willGoButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
+            self.followedButton.setTitleColor(UIColor.gray, for: .normal)
+        } else {
+            self.accountButton.setTitleColor(UIColor.gray, for: .normal)
+            self.wentButton.setTitleColor(UIColor.gray, for: .normal)
+            self.willGoButton.setTitleColor(UIColor.gray, for: .normal)
+            self.followedButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
         }
     }
-    
+}
+
+extension MyPageFatherVC: PresentDelegate {
+    func present(_ events: Events) {
+        let certifier = "PopularDetailVC"
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: certifier) as! PopularDetailVC
+        vc.eventId = events.id
+        if let urlImage = events.photo {
+            vc.eventUrlImgString = urlImage
+        }
+        vc.eventTitle = events.name
+        vc.venue_id = String(events.venue.id!)
+        present(vc, animated: true, completion: nil)
+    }
 }

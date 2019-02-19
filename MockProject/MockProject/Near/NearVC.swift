@@ -66,7 +66,6 @@ extension NearVC: CLLocationManagerDelegate {
             long = location.coordinate.longitude
             lat = location.coordinate.latitude
         }
-        centerMapOnLocation(location: CLLocation(latitude: lat, longitude: long))
         getEventNear()
     }
 }

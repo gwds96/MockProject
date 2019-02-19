@@ -46,14 +46,15 @@ class LogInVC: UIViewController {
         guard let httpBody = try? JSONSerialization.data(withJSONObject: params, options: []) else { return }
         request.httpBody = httpBody
         requestData(urlRequest: request) { (obj: Account) in
-            DispatchQueue.main.async {
-                if obj.status == 0 {
+            if obj.status == 0 {
+                DispatchQueue.main.async {
                     self.spinActivity.stopAnimating()
                     self.noticeLbl.text = "Login is failed, please try again!!"
-                } else {
+                }
+            } else {
+                self.keyChain.set((obj.response?.token)!, forKey: "token")
+                DispatchQueue.main.async {
                     self.spinActivity.stopAnimating()
-                    self.noticeLbl.text = ""
-                    self.keyChain.set((obj.response?.token)!, forKey: "token")
                     MainTabBar.instance.updateStateTabbar()
                 }
             }
@@ -61,6 +62,7 @@ class LogInVC: UIViewController {
     }
     
     @IBAction func enterButton(_ sender: Any) {
+        noticeLbl.text = ""
         spinActivity.startAnimating()
         postRequestLogin()
     }
