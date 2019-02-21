@@ -8,19 +8,16 @@ class HomeVC: UIViewController {
     
     var colorLabel = UILabel()
     
-    var newVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewsVC") as! NewsVC
+    lazy var newVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewsVC") as! NewsVC
     
-    var popularVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PopularVC") as! PopularVC
+    lazy var popularVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PopularVC") as! PopularVC
     
-    lazy var subViews: [UIViewController] = {
-        return [newVC, popularVC]
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         popularVC.presentDelegate = self
+        
         scrollView.contentSize = CGSize(width: self.view.bounds.width * 2, height: self.scrollView.frame.height)
-        setupViewForScrollView([subViews[0].view, subViews[1].view])
+        setupViewForScrollView([newVC.view, popularVC.view])
         
         colorLabel.frame = CGRect(x: 0, y: newsButton.bounds.height + 20, width: view.bounds.width/2, height: 5)
         colorLabel.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)

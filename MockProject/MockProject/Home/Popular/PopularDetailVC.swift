@@ -1,26 +1,27 @@
 import UIKit
 
 class PopularDetailVC: UIViewController {
-    
     @IBOutlet weak var backgroundImage: UIImageView!
+    
     @IBOutlet weak var eventImage: UIImageView!
     @IBOutlet weak var titleEventLabel: UILabel!
     @IBOutlet weak var detailEventLabel: UILabel!
-    @IBOutlet weak var linkEventLabel: UILabel!
+    @IBOutlet weak var linkEventButton: UIButton!
     @IBOutlet weak var numberGoingLabel: UILabel!
     @IBOutlet weak var numberWentLabel: UILabel!
     @IBOutlet weak var constentView: UIView!
     @IBOutlet weak var mainScrollView: UIScrollView!
-    @IBOutlet weak var locationEventLabel: UILabel!
+    @IBOutlet weak var venueEventLabel: UILabel!
     @IBOutlet weak var contactEventLabel: UILabel!
-    @IBOutlet weak var addressEventLabel: UILabel!
+    @IBOutlet weak var locationEventLabel: UILabel!
+    @IBOutlet weak var genreEventLabel: UILabel!
     
-    @IBOutlet weak var viewDetailButton: UIButton!
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var willGoButton: UIButton!
     @IBOutlet weak var haveWentButton: UIButton!
-    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var spinActivity: UIActivityIndicatorView!
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var minimize: Bool = true
     
@@ -31,21 +32,24 @@ class PopularDetailVC: UIViewController {
     var eventUrlImgString: String?
     var venue_id: String?
     var status = 0
+    var detail = String()
     
     var venueIdArray: [Int] = []
     var eventGoIdArray: [Int] = []
     var eventWentIdArray: [Int] = []
     
+    var eventNearLong = Float()
+    var eventNearLat = Float()
+    var nearEvents = [Events]()
+    
     override func viewDidLoad() {
         spinActivity.startAnimating()
-        backgroundImage.cacheImage(urlImage: eventUrlImgString ?? "")
-        backgroundImage.alpha = 0.1
+        backgroundImage.image = #imageLiteral(resourceName: "background news")
+        backgroundImage.alpha = 0.3
+        collectionView.layer.cornerRadius = 10
         mainScrollView.backgroundColor = nil
         constentView.backgroundColor = nil
         
-        cancelButton.setTitleColor(UIColor.red, for: .normal)
-        cancelButton.layer.backgroundColor = #colorLiteral(red: 0.8133895397, green: 0.9217470288, blue: 0.9522448182, alpha: 0.3857020548)
-        cancelButton.layer.cornerRadius = 5
         followButton.layer.backgroundColor = #colorLiteral(red: 0.8133895397, green: 0.9217470288, blue: 0.9522448182, alpha: 0.3857020548)
         followButton.layer.cornerRadius = 5
         willGoButton.layer.backgroundColor = #colorLiteral(red: 0.8133895397, green: 0.9217470288, blue: 0.9522448182, alpha: 0.3857020548)
@@ -63,17 +67,16 @@ class PopularDetailVC: UIViewController {
     
     // MARK: - Func for Show and Load Data
     func loadData() {
+        
         // MARK: Check for hiding or showing buttons
         if keyChain.get("token") == nil {
             followButton.isHidden = true
             willGoButton.isHidden = true
             haveWentButton.isHidden = true
-            cancelButton.isHidden = true
         } else {
             followButton.isHidden = false
             willGoButton.isHidden = false
             haveWentButton.isHidden = false
-            cancelButton.isHidden = false
             
             // MARK: - Check followed or not
             var urlFollowed = URLComponents(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listVenueFollowed")!
@@ -111,16 +114,21 @@ class PopularDetailVC: UIViewController {
         // MARK: - Show detail for the event
         let urlDetailEvents = URL(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/getDetailEvent?event_id=" + "\(String(eventId!))")!
         requestData(urlRequest: URLRequest(url: urlDetailEvents)) { (obj: MainEventDetail) in
+            self.detail = obj.response.events.description_raw!
+            self.eventNearLong = Float(obj.response.events.venue.geo_long!)!
+            self.eventNearLat = Float(obj.response.events.venue.geo_lat!)!
+            self.getEventNear()
             DispatchQueue.main.async {
                 self.titleEventLabel.text = self.eventTitle
                 self.eventImage.cacheImage(urlImage: self.eventUrlImgString ?? "")
                 self.detailEventLabel.text = obj.response.events.description_raw?.htmlToString
-                self.linkEventLabel.text = obj.response.events.link
+                self.linkEventButton.setTitle(obj.response.events.link, for: .normal)
                 self.numberGoingLabel.text = String(obj.response.events.going_count!)
                 self.numberWentLabel.text = String(obj.response.events.went_count!)
-                self.locationEventLabel.text = obj.response.events.venue.name
+                self.venueEventLabel.text = obj.response.events.venue.name
                 self.contactEventLabel.text = obj.response.events.venue.contact_phone
-                self.addressEventLabel.text = obj.response.events.venue.contact_address
+                self.locationEventLabel.text = obj.response.events.venue.contact_address
+                self.genreEventLabel.text = obj.response.events.category?.name
                 self.spinActivity.stopAnimating()
                 
                 // MARK: - Set status for the buttons
@@ -129,7 +137,7 @@ class PopularDetailVC: UIViewController {
                     self.followButton.backgroundColor = #colorLiteral(red: 0.0775340572, green: 0.2096011639, blue: 0.3246611953, alpha: 0.3)
                     self.followButton.setTitleColor(UIColor.red, for: .normal)
                 } else {
-                    self.followButton.setTitle("Follow", for: .normal)
+                    self.followButton.setTitle("Follow this", for: .normal)
                     self.followButton.setTitleColor(UIColor.blue, for: .normal)
                 }
                 
@@ -221,10 +229,8 @@ class PopularDetailVC: UIViewController {
     @IBAction func viewDetail(_ sender: Any) {
         minimize.toggle()
         if minimize {
-            viewDetailButton.setImage(#imageLiteral(resourceName: "expand"), for: .normal)
             detailEventLabel.setContentCompressionResistancePriority(.init(749), for: .vertical)
         } else {
-            viewDetailButton.setImage(#imageLiteral(resourceName: "collapse"), for: .normal)
             detailEventLabel.setContentCompressionResistancePriority(.init(751), for: .vertical)
         }
     }
@@ -234,6 +240,14 @@ class PopularDetailVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    // MARK: - Do open link
+    @IBAction func openLinkButton(_ sender: Any) {
+        guard let url = URL(string: linkEventButton.title(for: .normal)!) else {
+            return
+        }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+    
     // MARK: - Do follow venue
     @IBAction func followButton(_ sender: Any) {
         doFollowVenue()
@@ -241,21 +255,59 @@ class PopularDetailVC: UIViewController {
     
     // MARK: - Do click will go
     @IBAction func willGoButton(_ sender: Any) {
+        if willGoButton.backgroundColor == #colorLiteral(red: 0.0775340572, green: 0.2096011639, blue: 0.3246611953, alpha: 0.3) {
+            status = 0
+        } else {
             status = 1
+        }
             doUpdateEvent()
         
     }
     
     // MARK: - Do click have went
     @IBAction func wentButton(_ sender: Any) {
+        if haveWentButton.backgroundColor == #colorLiteral(red: 0.0775340572, green: 0.2096011639, blue: 0.3246611953, alpha: 0.3) {
+            status = 0
+        } else {
             status = 2
+        }
             doUpdateEvent()
     }
     
-    // MARK: - Do click cancel
-    @IBAction func cancelButton(_ sender: Any) {
-        status = 0
-        doUpdateEvent()
+}
+
+extension PopularDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return nearEvents.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let certifier = "DetailCollectionCell"
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: certifier, for: indexPath) as! DetailCollectionCell
+        if let urlImage = nearEvents[indexPath.row].photo {
+        cell.eventImage.cacheImage(urlImage: urlImage)
+        }
+        cell.eventNameLabel.text = nearEvents[indexPath.row].name
+        cell.eventDetailLabel.text = nearEvents[indexPath.row].description_raw?.htmlToString
+        cell.eventDateLabel.text = nearEvents[indexPath.row].schedule_start_date
+        cell.eventWillGoLabel.text = "- \(String(nearEvents[indexPath.row].going_count!)) will going"
+        return cell
+    }
+    
+    // MARK: - Get nearly events
+    func getEventNear() {
+        var urlNear = URLComponents(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listNearlyEvents")!
+        urlNear.queryItems = [URLQueryItem(name: "radius", value: "2000"), URLQueryItem(name: "longitue", value: "\(eventNearLong)"), URLQueryItem(name: "latitude", value: "\(eventNearLat)")]
+        let request = URLRequest(url: urlNear.url!)
+        requestData(urlRequest: request) { (obj: MainEvent) in
+            self.nearEvents = obj.response.events ?? []
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
 }

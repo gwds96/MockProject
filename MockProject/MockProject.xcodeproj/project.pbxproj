@@ -45,6 +45,7 @@
 		F7E322B222000CC100394B3F /* FollowedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E322B122000CC100394B3F /* FollowedCell.swift */; };
 		F7E322B4220059E400394B3F /* WillGoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E322B3220059E400394B3F /* WillGoCell.swift */; };
 		F7E322B6220059F900394B3F /* WentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E322B5220059F900394B3F /* WentCell.swift */; };
+		F7EC600E221E95AF008754C5 /* DetailCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EC600D221E95AF008754C5 /* DetailCollectionCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,7 @@
 		F7E322B122000CC100394B3F /* FollowedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowedCell.swift; sourceTree = "<group>"; };
 		F7E322B3220059E400394B3F /* WillGoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WillGoCell.swift; sourceTree = "<group>"; };
 		F7E322B5220059F900394B3F /* WentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WentCell.swift; sourceTree = "<group>"; };
+		F7EC600D221E95AF008754C5 /* DetailCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCollectionCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 				F710D82621F5877C0046FEB6 /* PopularVC.swift */,
 				F710D82821F587B10046FEB6 /* PopularCell.swift */,
 				F710D82A21F588030046FEB6 /* PopularDetailVC.swift */,
+				F7EC600D221E95AF008754C5 /* DetailCollectionCell.swift */,
 				F7DFC56C21F81DB800FDA62C /* EventsStruct.swift */,
 			);
 			path = Popular;
@@ -346,6 +349,7 @@
 				F7E322AE21FFFCDE00394B3F /* WillGoVC.swift in Sources */,
 				F710D81E21F57FFF0046FEB6 /* NewsVC.swift in Sources */,
 				F732684F22142A1C0077E7C9 /* SearchCell.swift in Sources */,
+				F7EC600E221E95AF008754C5 /* DetailCollectionCell.swift in Sources */,
 				F72E29D022115E54009A4ACA /* Artwork.swift in Sources */,
 				F749DEF521FEE0BE00EC5EDE /* ResetPassVC.swift in Sources */,
 				F721B99F21FAF705005B1C26 /* EventsByCategoryVC.swift in Sources */,

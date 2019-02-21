@@ -20,23 +20,25 @@ extension String {
 }
 
 // MARK: - cache Image
-let nsCacheImage = NSCache<AnyObject, AnyObject>()
+
+let imageCache = NSCache<AnyObject, AnyObject> ()
 extension UIImageView {
     func cacheImage(urlImage: String) {
-        image = #imageLiteral(resourceName: "Noimage")
-        if let imageFromCache = nsCacheImage.object(forKey: urlImage as AnyObject) {
-            image = imageFromCache as? UIImage
+        guard let url = URL(string: urlImage) else { return }
+        image = nil
+        if let imageFromCache = imageCache.object(forKey: urlImage as AnyObject) as? UIImage {
+            self.image = imageFromCache
+            return
         }
-            else {
-            guard let url = URL(string: urlImage) else { return }
-            do {
-            let dataImage = try Data(contentsOf: url)
-            let img = UIImage(data: dataImage)!
-            nsCacheImage.setObject(img, forKey: urlImage as AnyObject)
-            image = img
-            } catch let error {
-                print(error)
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let data = data {
+                DispatchQueue.main.async {
+                    let imageToCache = UIImage(data: data)
+                    imageCache.setObject(imageToCache!, forKey: urlImage as AnyObject)
+                    self.image = imageToCache
+                }
             }
-        }
+            }.resume()
     }
 }

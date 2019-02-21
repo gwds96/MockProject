@@ -11,13 +11,13 @@ class NewsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        spinActivity.startAnimating()
+        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background news"))
+        tableView.backgroundView?.alpha = 0.3
         loadData()
     }
     
     func loadData() {
-        spinActivity.startAnimating()
-        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background news"))
-        tableView.backgroundView?.alpha = 0.3
         requestData(urlRequest: URLRequest(url: urlString)) { (obj: MainNews) in
             self.news = obj.response.news
             DispatchQueue.main.async {

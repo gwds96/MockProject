@@ -23,8 +23,9 @@ class PopularVC: UIViewController {
         requestData(urlRequest: URLRequest(url: urlEvents)) { (obj: MainEvent) in
             self.events = obj.response.events ?? []
             DispatchQueue.main.async {
-                self.spinActivity.stopAnimating()
                 self.tableView.reloadData()
+                self.spinActivity.stopAnimating()
+                
             }
         }
     }
@@ -42,8 +43,6 @@ extension PopularVC: UITableViewDelegate, UITableViewDataSource {
         cell.backgroundColor = nil
         if let urlString = events[indexPath.row].photo {
             cell.eventImage.cacheImage(urlImage: urlString)
-        } else {
-            cell.eventImage.image = #imageLiteral(resourceName: "Noimage")
         }
         cell.titlelabel.text = events[indexPath.row].name
         cell.dateStartLabel.text = "🗓 \(events[indexPath.row].schedule_start_date ?? "")"
