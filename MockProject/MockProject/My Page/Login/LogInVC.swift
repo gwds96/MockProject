@@ -38,6 +38,7 @@ class LogInVC: UIViewController {
     
     // MARK: - Post request Login
     func postRequestLogin() {
+        keyChain.set(emailTextField.text!, forKey: "email")
         keyChain.set(passTextField.text!, forKey: "password")
         let params = ["email": "\(emailTextField.text ?? "")", "password": "\(keyChain.get("password") ?? "")"]
         var request = URLRequest(url: urlLogin)

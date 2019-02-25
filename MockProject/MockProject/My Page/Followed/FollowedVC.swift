@@ -30,10 +30,17 @@ class FollowedVC: UIViewController {
         urlFollowed.queryItems = [URLQueryItem(name: "token", value: "\(keyChain.get("token") ?? "")")]
         let request = URLRequest(url: urlFollowed.url!)
         requestData(urlRequest: request) { (obj: MainEvent) in
-            self.venue = obj.response.venues ?? []
-            DispatchQueue.main.async {
-                self.spinActivity.stopAnimating()
-                self.tableView.reloadData()
+            if let error = obj.error_message {
+                if error == "Token is expired." {
+                    refreshToken()
+                    self.loadData()
+                }
+            } else {
+                self.venue = obj.response.venues ?? []
+                DispatchQueue.main.async {
+                    self.spinActivity.stopAnimating()
+                    self.tableView.reloadData()
+                }
             }
         }
     }

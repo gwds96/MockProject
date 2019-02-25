@@ -25,10 +25,17 @@ class WentVC: UIViewController {
         urlWent.queryItems = [URLQueryItem(name: "token", value: "\(keyChain.get("token") ?? "")"), URLQueryItem(name: "status", value: "2")]
         let request = URLRequest(url: urlWent.url!)
         requestData(urlRequest: request) { (obj: MainEvent) in
-            self.event = obj.response.events ?? []
-            DispatchQueue.main.async {
-                self.spinActivity.stopAnimating()
-                self.tableView.reloadData()
+            if let error = obj.error_message {
+                if error == "Token is expired." {
+                    refreshToken()
+                    self.loadData()
+                }
+            } else {
+                self.event = obj.response.events ?? []
+                DispatchQueue.main.async {
+                    self.spinActivity.stopAnimating()
+                    self.tableView.reloadData()
+                }
             }
         }
     }

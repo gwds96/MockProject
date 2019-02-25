@@ -83,8 +83,15 @@ class PopularDetailVC: UIViewController {
             urlFollowed.queryItems = [URLQueryItem(name: "token", value: "\(keyChain.get("token") ?? "")")]
             let requestFollowed = URLRequest(url: urlFollowed.url!)
             requestData(urlRequest: requestFollowed) { (obj: MainEvent) in
-                for venue in obj.response.venues ?? [] {
-                    self.venueIdArray.append(venue.id!)
+                if let error = obj.error_message {
+                    if error == "Token is expired." {
+                        refreshToken()
+                        self.loadData()
+                    }
+                } else {
+                    for venue in obj.response.venues ?? [] {
+                        self.venueIdArray.append(venue.id!)
+                    }
                 }
             }
             
@@ -246,6 +253,12 @@ class PopularDetailVC: UIViewController {
             return
         }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+    
+    // MARK: - Do call contact
+    @IBAction func getPhoneCall(_ sender: Any) {
+        guard let number = URL(string: "tel://\(contactEventLabel.text ?? "")") else { return }
+        UIApplication.shared.open(number)
     }
     
     // MARK: - Do follow venue

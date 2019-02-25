@@ -4,6 +4,7 @@ import Foundation
 struct MainEvent: Codable {
     let status: Int
     let response: ResponseEvent
+    let error_message: String?
 }
 
 struct MainEventDetail: Codable {

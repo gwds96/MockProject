@@ -15,11 +15,15 @@ class BrowseVC: UIViewController {
         tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background news"))
         tableView.backgroundView?.alpha = 0.3
         requestData(urlRequest: URLRequest(url: urlCategory)) { (obj: MainCategory) in
+            self.categories = obj.response.categories
             DispatchQueue.main.async {
-                self.categories = obj.response.categories
-                self.tableView.reloadData()
+                self.animateTable()
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        animateTable()
     }
     
     @IBAction func searchButton(_ sender: Any) {
@@ -53,5 +57,25 @@ extension BrowseVC: UITableViewDataSource, UITableViewDelegate {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: certifier) as! EventsByCategoryVC
         vc.categoryId = self.categories[indexPath.row].id
         present(vc, animated: true, completion: nil)
+    }
+    
+    func animateTable() {
+        tableView.reloadData()
+        let cells = tableView.visibleCells
+        
+        let tableViewHeight = tableView.bounds.size.height
+        
+        for cell in cells {
+            cell.transform = CGAffineTransform(translationX: 0, y: tableViewHeight)
+        }
+        
+        var delayCounter = 0
+        for cell in cells {
+            UIView.animate(withDuration: 1.5, delay: Double(delayCounter) * 0.05, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                cell.transform = CGAffineTransform.identity
+            }, completion: nil)
+            delayCounter += 1
+        }
+        
     }
 }

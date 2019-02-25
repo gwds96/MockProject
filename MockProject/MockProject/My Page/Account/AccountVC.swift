@@ -16,6 +16,8 @@ class AccountVC: UIViewController {
     
     @IBAction func logOutButton(_ sender: Any) {
         keyChain.delete("token")
+        keyChain.delete("email")
+        keyChain.delete("password")
         MainTabBar.instance.updateStateTabbar()
     }
     
