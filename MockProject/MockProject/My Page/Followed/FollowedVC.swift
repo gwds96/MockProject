@@ -8,7 +8,7 @@ class FollowedVC: UIViewController {
     @IBOutlet weak var spinActivity: UIActivityIndicatorView!
     
     let keyChain = KeychainSwift()
-    var urlFollowed = URLComponents(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listVenueFollowed")!
+    var urlFollowed = URLComponents(string: urlMain + "listVenueFollowed")!
     var venue = [Venue]()
     
     override func viewDidLoad() {
@@ -30,18 +30,11 @@ class FollowedVC: UIViewController {
         urlFollowed.queryItems = [URLQueryItem(name: "token", value: "\(keyChain.get("token") ?? "")")]
         let request = URLRequest(url: urlFollowed.url!)
         requestData(urlRequest: request) { (obj: MainEvent) in
-            if let error = obj.error_message {
-                if error == "Token is expired." {
-                    refreshToken()
-                    self.loadData()
-                }
-            } else {
-                self.venue = obj.response.venues ?? []
+            self.venue = obj.response.venues ?? []
                 DispatchQueue.main.async {
                     self.spinActivity.stopAnimating()
                     self.tableView.reloadData()
                 }
-            }
         }
     }
     

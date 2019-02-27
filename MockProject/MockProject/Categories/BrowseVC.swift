@@ -5,7 +5,7 @@ class BrowseVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var navigationBar: UINavigationBar!
     
-    let urlCategory = URL(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listCategories")!
+    let urlCategory = URL(string: urlMain + "listCategories")!
     
     var categories = [Categories]()
     
@@ -55,6 +55,7 @@ extension BrowseVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let certifier = "EventsByCategoryVC"
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: certifier) as! EventsByCategoryVC
+        vc.categoryTitle = self.categories[indexPath.row].name
         vc.categoryId = self.categories[indexPath.row].id
         present(vc, animated: true, completion: nil)
     }
@@ -71,7 +72,7 @@ extension BrowseVC: UITableViewDataSource, UITableViewDelegate {
         
         var delayCounter = 0
         for cell in cells {
-            UIView.animate(withDuration: 1.5, delay: Double(delayCounter) * 0.05, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.75, delay: Double(delayCounter) * 0.05, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
                 cell.transform = CGAffineTransform.identity
             }, completion: nil)
             delayCounter += 1

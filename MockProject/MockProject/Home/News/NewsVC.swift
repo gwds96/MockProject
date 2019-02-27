@@ -5,9 +5,10 @@ class NewsVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var spinActivity: UIActivityIndicatorView!
     
-    var urlString = URL(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listNews")!
+    var urlNews = URLComponents(string: urlMain + "listNews")!
     
     var news = [News]()
+    var pageIndex = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,11 +19,26 @@ class NewsVC: UIViewController {
     }
     
     func loadData() {
-        requestData(urlRequest: URLRequest(url: urlString)) { (obj: MainNews) in
+        urlNews.queryItems = [URLQueryItem(name: "pageIndex", value: "\(pageIndex)"), URLQueryItem(name: "pageSize", value: "10")]
+        let request = URLRequest(url: urlNews.url!)
+        requestData(urlRequest: request) { (obj: MainNews) in
             self.news = obj.response.news
             DispatchQueue.main.async {
                 self.spinActivity.stopAnimating()
                 self.tableView.reloadData()
+            }
+        }
+    }
+    
+        // MARK: - load more data
+    func loadMoreData() {
+        urlNews.queryItems = [URLQueryItem(name: "pageIndex", value: "\(pageIndex)"), URLQueryItem(name: "pageSize", value: "10")]
+        let request = URLRequest(url: urlNews.url!)
+        requestData(urlRequest: request) { (obj: MainNews) in
+            self.news += obj.response.news 
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                
             }
         }
     }
@@ -52,6 +68,13 @@ class NewsVC: UIViewController {
                 cell.dateLabel.text = String(date)
             }
             return cell
+        }
+        
+        func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+            if indexPath.row == pageIndex * 10 - 1 {
+                pageIndex += 1
+                loadMoreData()
+            }
         }
         
         func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -9,7 +9,8 @@ class PopularVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var spinActivity: UIActivityIndicatorView!
     
-    let urlEvents = URL(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listPopularEvents")!
+    var urlEvents = URLComponents(string: urlMain + "listPopularEvents")!
+    var pageIndex = 1
     
     weak var presentDelegate: PresentDelegate?
     
@@ -17,14 +18,33 @@ class PopularVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let nib = UINib.init(nibName: "EventCells", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "EventCells")
+        
         spinActivity.startAnimating()
         tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background news"))
         tableView.backgroundView?.alpha = 0.3
-        requestData(urlRequest: URLRequest(url: urlEvents)) { (obj: MainEvent) in
+        
+        urlEvents.queryItems = [URLQueryItem(name: "pageIndex", value: "\(pageIndex)"), URLQueryItem(name: "pageSize", value: "10")]
+        let request = URLRequest(url: urlEvents.url!)
+        requestData(urlRequest: request) { (obj: MainEvent) in
             self.events = obj.response.events ?? []
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.spinActivity.stopAnimating()
+                
+            }
+        }
+    }
+    
+        // MARK: - load more data
+    func loadMoreData() {
+        urlEvents.queryItems = [URLQueryItem(name: "pageIndex", value: "\(pageIndex)"), URLQueryItem(name: "pageSize", value: "10")]
+        let request = URLRequest(url: urlEvents.url!)
+        requestData(urlRequest: request) { (obj: MainEvent) in
+            self.events += obj.response.events ?? []
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
                 
             }
         }
@@ -38,17 +58,31 @@ extension PopularVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let certifier = "PopularCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: certifier) as! PopularCell
+        let certifier = "EventCells"
+        let cell = tableView.dequeueReusableCell(withIdentifier: certifier) as! EventCells
+        
+        cell.selectionStyle = .none
+        
         cell.backgroundColor = nil
         if let urlString = events[indexPath.row].photo {
             cell.eventImage.cacheImage(urlImage: urlString)
         }
-        cell.titlelabel.text = events[indexPath.row].name
-        cell.dateStartLabel.text = "🗓 \(events[indexPath.row].schedule_start_date ?? "")"
-        cell.timeStartLabel.text = "⏰ \(events[indexPath.row].schedule_start_time ?? "")"
-        cell.placeLabel.text = "📍 \(events[indexPath.row].venue.name ?? "")"
+        cell.eventTitleLabel.text = events[indexPath.row].name
+        cell.eventDateStartLabel.text = "🗓 \(events[indexPath.row].schedule_start_date ?? "")"
+        cell.eventDateEndLabel.text = "To  \(events[indexPath.row].schedule_end_date ?? "")"
+        cell.eventTimeStartLabel.text = "⏰ \(events[indexPath.row].schedule_start_time ?? "")"
+        cell.eventTimeEndLabel.text = "To  \(events[indexPath.row].schedule_end_time ?? "")"
+        cell.eventPlaceLabel.text = "📍 \(events[indexPath.row].venue.name ?? "")"
+        cell.willGoingLabel.text = String(events[indexPath.row].going_count ?? 0)
+        cell.wentLabel.text = String(events[indexPath.row].went_count ?? 0)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == pageIndex * 10 - 1 {
+            pageIndex += 1
+            loadMoreData()
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -25,7 +25,7 @@ class MyPageFatherVC: UIViewController {
         
         setupViewForScrollView([subViews[0].view, subViews[1].view, subViews[2].view, subViews[3].view])
         
-        colorLabel.frame = CGRect(x: 0, y: accountButton.bounds.height + 20, width: view.bounds.width/4, height: 5)
+        colorLabel.frame = CGRect(x: 0, y: accountButton.bounds.height + 30, width: view.bounds.width/4, height: 2)
         colorLabel.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         view.addSubview(colorLabel)
         accountButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
@@ -93,7 +93,7 @@ class MyPageFatherVC: UIViewController {
 // MARK: - Color for Button
 extension MyPageFatherVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        colorLabel.frame = CGRect(x: scrollView.contentOffset.x/4, y: accountButton.bounds.height + 20, width: view.bounds.width/4, height: 5)
+        colorLabel.frame = CGRect(x: scrollView.contentOffset.x/4, y: accountButton.bounds.height + 30, width: view.bounds.width/4, height: 2)
         if scrollView.contentOffset.x < view.bounds.width/2 {
             self.accountButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
             self.wentButton.setTitleColor(UIColor.gray, for: .normal)

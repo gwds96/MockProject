@@ -19,7 +19,7 @@ class HomeVC: UIViewController {
         scrollView.contentSize = CGSize(width: self.view.bounds.width * 2, height: self.scrollView.frame.height)
         setupViewForScrollView([newVC.view, popularVC.view])
         
-        colorLabel.frame = CGRect(x: 0, y: newsButton.bounds.height + 20, width: view.bounds.width/2, height: 5)
+        colorLabel.frame = CGRect(x: 0, y: newsButton.bounds.height + 30, width: view.bounds.width/2, height: 2)
         colorLabel.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         view.addSubview(colorLabel)
         newsButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
@@ -55,7 +55,7 @@ class HomeVC: UIViewController {
 
 extension HomeVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        colorLabel.frame = CGRect(x: scrollView.contentOffset.x/2, y: newsButton.bounds.height + 20, width: view.bounds.width/2, height: 5)
+        colorLabel.frame = CGRect(x: scrollView.contentOffset.x/2, y: newsButton.bounds.height + 30, width: view.bounds.width/2, height: 2)
         if scrollView.contentOffset.x > view.bounds.width/2 {
             self.popularButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
             self.newsButton.setTitleColor(UIColor.gray, for: .normal)

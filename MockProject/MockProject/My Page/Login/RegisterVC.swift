@@ -20,10 +20,12 @@ class RegisterVC: UIViewController {
     
     weak var sendBackInfoDelegate: SendBackInfoDelegate?
     
-    let urlRegister = URL(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/register")!
+    let urlRegister = URL(string: urlMain + "register")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
+        
         enterButton.layer.borderWidth = 2
         enterButton.layer.borderColor = UIColor.red.cgColor
         enterButton.layer.cornerRadius = 5

@@ -14,7 +14,7 @@ class NearVC: UIViewController {
     
     let locationManager = CLLocationManager()
     
-    var urlNear = URLComponents(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listNearlyEvents")!
+    var urlNear = URLComponents(string: urlMain + "listNearlyEvents")!
     
     let imageCache = NSCache<AnyObject, AnyObject>()
     
@@ -68,6 +68,7 @@ extension NearVC: CLLocationManagerDelegate {
         }
         getEventNear()
     }
+
 }
 
 // MARK: - Show nearly events

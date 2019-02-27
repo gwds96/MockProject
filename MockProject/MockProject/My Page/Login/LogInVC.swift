@@ -10,10 +10,11 @@ class LogInVC: UIViewController {
     
     let keyChain = KeychainSwift()
     
-    let urlLogin = URL(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/login")!
+    let urlLogin = URL(string: urlMain + "login")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
         
         // MARK: - Animation for buttons and textfields
         enterButton.layer.borderWidth = 2
@@ -62,7 +63,9 @@ class LogInVC: UIViewController {
         }
     }
     
+    // MARK: - Click sign in
     @IBAction func enterButton(_ sender: Any) {
+        view.endEditing(true)
         noticeLbl.text = ""
         spinActivity.startAnimating()
         postRequestLogin()
@@ -70,6 +73,7 @@ class LogInVC: UIViewController {
     
     // MARK: - Click sign up
     @IBAction func signUpButton(_ sender: Any) {
+        view.endEditing(true)
         let cellIdentifier = "RegisterVC"
         let vc = UIStoryboard(name: "Main", bundle: nil)
         let screen = vc.instantiateViewController(
@@ -80,6 +84,7 @@ class LogInVC: UIViewController {
     
     // MARK: - Click reset password
     @IBAction func resetPassButton(_ sender: Any) {
+        view.endEditing(true)
         let cellIdentifier = "ResetPassVC"
         let vc = UIStoryboard(name: "Main", bundle: nil)
         let screen = vc.instantiateViewController(

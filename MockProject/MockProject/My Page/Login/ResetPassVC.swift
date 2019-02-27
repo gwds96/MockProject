@@ -6,7 +6,12 @@ class ResetPassVC: UIViewController {
     @IBOutlet weak var noticeLabel: UILabel!
     @IBOutlet weak var spinActivity: UIActivityIndicatorView!
     
-    let urlReset = URL(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/resetPassword")!
+    let urlReset = URL(string: urlMain + "resetPassword")!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
+    }
     
     func ResetPassword() {
         let params = ["email": "\(emailTextField.text ?? "")"]

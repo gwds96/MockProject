@@ -5,7 +5,7 @@ class WillGoVC: UIViewController {
     @IBOutlet weak var spinActivity: UIActivityIndicatorView!
     
     let keyChain = KeychainSwift()
-    var urlWillGo = URLComponents(string: "http://172.16.18.91/18175d1_mobile_100_fresher/public/api/v0/listMyEvents")!
+    var urlWillGo = URLComponents(string: urlMain + "listMyEvents")!
     var event = [Events]()
     
     weak var presentDelegate: PresentDelegate?
@@ -14,6 +14,9 @@ class WillGoVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let nib = UINib.init(nibName: "EventCells", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "EventCells")
+        
         spinActivity.startAnimating()
         tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background went going"))
         tableView.backgroundView?.alpha = 0.2
@@ -25,18 +28,11 @@ class WillGoVC: UIViewController {
         urlWillGo.queryItems = [URLQueryItem(name: "token", value: "\(keyChain.get("token") ?? "")"), URLQueryItem(name: "status", value: "1")]
         let request = URLRequest(url: urlWillGo.url!)
         requestData(urlRequest: request) { (obj: MainEvent) in
-            if let error = obj.error_message {
-                if error == "Token is expired." {
-                    refreshToken()
-                    self.loadData()
-                }
-            } else {
-                self.event = obj.response.events ?? []
+            self.event = obj.response.events ?? []
                 DispatchQueue.main.async {
                     self.spinActivity.stopAnimating()
                     self.tableView.reloadData()
-            }
-            }
+                }
         }
     }
 }
@@ -51,18 +47,25 @@ extension WillGoVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let certifier = "WillGoCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: certifier) as! WillGoCell
+        let certifier = "EventCells"
+        let cell = tableView.dequeueReusableCell(withIdentifier: certifier) as! EventCells
+        
+        cell.selectionStyle = .none
+        
         cell.backgroundColor = nil
-        cell.nameLabel.text = event[indexPath.row].name
-        cell.localLabel.text = event[indexPath.row].venue.name
-        cell.dateLabel.text = event[indexPath.row].schedule_start_date
-        cell.timeLabel.text = event[indexPath.row].schedule_start_time
-        if let urlImage = event[indexPath.row].photo {
-            cell.eventImage.cacheImage(urlImage: urlImage)
+        if let urlString = event[indexPath.row].photo {
+            cell.eventImage.cacheImage(urlImage: urlString)
         } else {
             cell.eventImage.image = #imageLiteral(resourceName: "Noimage")
         }
+        cell.eventTitleLabel.text = event[indexPath.row].name
+        cell.eventDateStartLabel.text = "🗓 \(event[indexPath.row].schedule_start_date ?? "")"
+        cell.eventDateEndLabel.text = "To  \(event[indexPath.row].schedule_end_date ?? "")"
+        cell.eventTimeStartLabel.text = "⏰ \(event[indexPath.row].schedule_start_time ?? "")"
+        cell.eventTimeEndLabel.text = "To  \(event[indexPath.row].schedule_end_time ?? "")"
+        cell.eventPlaceLabel.text = "📍 \(event[indexPath.row].venue.name ?? "")"
+        cell.willGoingLabel.text = String(event[indexPath.row].going_count ?? 0)
+        cell.wentLabel.text = String(event[indexPath.row].went_count ?? 0)
         return cell
     }
     
