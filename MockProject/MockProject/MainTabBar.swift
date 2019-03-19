@@ -26,6 +26,7 @@ class MainTabBar: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.backgroundColor = #colorLiteral(red: 0.5838350723, green: 0.9869053812, blue: 1, alpha: 0.8413955479)
+        tabBar.frame.size.height = 49
         
         homeVC!.tabBarItem.title = "Home"
         nearVC!.tabBarItem.title = "Near"

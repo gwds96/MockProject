@@ -8,6 +8,7 @@ func requestData<T: Codable>(urlRequest: URLRequest, completion: @escaping (T) -
             let json = try JSONDecoder().decode(T.self, from: data)
             completion(json)
         } catch {
+            print(error)
         }
         }.resume()
 }

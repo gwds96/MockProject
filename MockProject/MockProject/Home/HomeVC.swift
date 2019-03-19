@@ -79,5 +79,4 @@ extension HomeVC: PresentDelegate {
         vc.venue_id = String(events.venue.id!)
         present(vc, animated: true, completion: nil)
     }
-    
 }

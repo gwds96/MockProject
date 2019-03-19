@@ -9,21 +9,63 @@ class BrowseVC: UIViewController {
     
     var categories = [Categories]()
     
+    // MARK: - Instance for core data
+    var categoriesData = [CategoriesData]()
+    var haveConection = false
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchData()
+        
         navigationBar.setBackgroundImage(#imageLiteral(resourceName: "background news"), for: .default)
         tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "background news"))
         tableView.backgroundView?.alpha = 0.3
         requestData(urlRequest: URLRequest(url: urlCategory)) { (obj: MainCategory) in
+            self.haveConection = true
             self.categories = obj.response.categories
+            
+            self.deleteEntity()
+            for item in self.categories {
+                let categoryData = CategoriesData(context: self.context)
+                categoryData.item = item.name
+                DispatchQueue.main.async {
+                    (UIApplication.shared.delegate as! AppDelegate).saveContext()
+                }
+            }
             DispatchQueue.main.async {
-                self.animateTable()
+                self.tableView.reloadData()
             }
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         animateTable()
+    }
+    
+    // MARK: - fetch Data from memory
+    func fetchData() {
+        do {
+            categoriesData = try context.fetch(CategoriesData.fetchRequest())
+            DispatchQueue.main.async {
+                self.animateTable()
+            }
+        } catch {
+            print("some error is \(error)")
+        }
+    }
+    
+    // MARK: - delete Entity
+    func deleteEntity() {
+        do {
+            for category in categoriesData {
+                context.delete(category)
+            }
+            DispatchQueue.main.async {
+                (UIApplication.shared.delegate as! AppDelegate).saveContext()
+            }
+        }
     }
     
     @IBAction func searchButton(_ sender: Any) {
@@ -37,14 +79,22 @@ class BrowseVC: UIViewController {
 
 extension BrowseVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        if haveConection {
+            return categories.count
+        } else {
+            return categoriesData.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let certifier = "BrowseCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: certifier) as! BrowseCell
         cell.backgroundColor = nil
-        cell.categoryLabel.text = categories[indexPath.row].name ?? ""
+        if haveConection {
+            cell.categoryLabel.text = categories[indexPath.row].name ?? ""
+        } else {
+            cell.categoryLabel.text = categoriesData[indexPath.row].item
+        }
         return cell
     }
     
@@ -53,11 +103,17 @@ extension BrowseVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let certifier = "EventsByCategoryVC"
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: certifier) as! EventsByCategoryVC
-        vc.categoryTitle = self.categories[indexPath.row].name
-        vc.categoryId = self.categories[indexPath.row].id
-        present(vc, animated: true, completion: nil)
+        if haveConection {
+            let certifier = "EventsByCategoryVC"
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: certifier) as! EventsByCategoryVC
+            vc.categoryTitle = self.categories[indexPath.row].name
+            vc.categoryId = self.categories[indexPath.row].id
+            present(vc, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "No conection", message: "Please make sure that you have conection", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
     }
     
     func animateTable() {

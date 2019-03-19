@@ -45,6 +45,8 @@ class PopularDetailVC: UIViewController {
     var lat = Double()
   
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         spinActivity.startAnimating()
         backgroundImage.image = #imageLiteral(resourceName: "background news")
         backgroundImage.alpha = 0.3
@@ -61,9 +63,14 @@ class PopularDetailVC: UIViewController {
         willGoButton.layer.cornerRadius = 5
         haveWentButton.layer.backgroundColor = #colorLiteral(red: 0.8133895397, green: 0.9217470288, blue: 0.9522448182, alpha: 0.75)
         haveWentButton.layer.cornerRadius = 5
-        
+
         loadData()
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadData()
     }
     
     // MARK: - Func for Show and Load Data
@@ -92,7 +99,8 @@ class PopularDetailVC: UIViewController {
             
             // MARK: - Check Went or not
             var urlWent = URLComponents(string: urlMain + "listMyEvents")!
-            urlWent.queryItems = [URLQueryItem(name: "token", value: "\(keyChain.get("token") ?? "")"), URLQueryItem(name: "status", value: "2")]
+            urlWent.queryItems = [URLQueryItem(name: "token", value: "\(keyChain.get("token") ?? "")"),
+                                  URLQueryItem(name: "status", value: "2")]
             let requestWent = URLRequest(url: urlWent.url!)
             requestData(urlRequest: requestWent) { (obj: MainEvent) in
                 self.eventWentIdArray = []
@@ -103,7 +111,8 @@ class PopularDetailVC: UIViewController {
             
             // MARK: - Check Will go or not
             var urlWillGo = URLComponents(string: urlMain + "listMyEvents")!
-            urlWillGo.queryItems = [URLQueryItem(name: "token", value: "\(keyChain.get("token") ?? "")"), URLQueryItem(name: "status", value: "1")]
+            urlWillGo.queryItems = [URLQueryItem(name: "token", value: "\(keyChain.get("token") ?? "")"),
+                                    URLQueryItem(name: "status", value: "1")]
             let requestWillGo = URLRequest(url: urlWillGo.url!)
             requestData(urlRequest: requestWillGo) { (obj: MainEvent) in
                     self.eventGoIdArray = []

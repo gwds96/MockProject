@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CategoriesData" representedClassName="CategoriesData" syncable="YES" codeGenerationType="class">
+        <attribute name="item" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="EventData" representedClassName="EventData" syncable="YES" codeGenerationType="class">
+        <attribute name="going_count" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photo" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="schedule_end_date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="schedule_end_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="schedule_start_date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="schedule_start_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="venue" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="went_count" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="NewsData" representedClassName="NewsData" syncable="YES" codeGenerationType="class">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="description_raw" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photo" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="source" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="EventData" positionX="-63" positionY="-18" width="128" height="180"/>
+        <element name="NewsData" positionX="-63" positionY="54" width="128" height="135"/>
+        <element name="CategoriesData" positionX="-54" positionY="72" width="128" height="60"/>
+    </elements>
+</model>
